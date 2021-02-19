@@ -6,7 +6,7 @@ public class Employee {
 
     private Profile profile;
     private float payment = 0.0f;
-    private static final int PAY_PERIODS = 26;
+    public static final int PAY_PERIODS = 26;
 
     public Employee(Profile profile){
       this.profile = profile;
@@ -24,13 +24,23 @@ public class Employee {
        return false;
     }
 
+    public void setPayment(float payment){
+        this.payment = payment;
+    }
+    public float getPayment(){
+        return this.payment;
+    }
+
+    public Profile getProfile(){
+        return profile;
+    }
 
     @Override
     public String toString() {
-      return "";
+      return profile.toString();
     }
 
-    public void calculatePayment(){ //idk how to polymorph this
+    public void calculatePayment(){ }//leave blank
 
-    }
+
 }
