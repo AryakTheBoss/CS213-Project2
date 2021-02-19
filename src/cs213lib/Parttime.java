@@ -7,6 +7,7 @@ public class Parttime extends Employee{
     private float hourlyRate;
     private float hoursWorked;
     private static final float OVERTIME_HOURS = 80.0f;
+    private static final float BONUS_RATE = 1.5f;
 
 
     public Parttime(Profile profile, float hourlyRate, float hoursWorked) {
@@ -20,7 +21,7 @@ public class Parttime extends Employee{
             super.setPayment(hourlyRate * hoursWorked);
         }else{
             float exceed = hoursWorked - OVERTIME_HOURS; //hours that exceed 80
-            super.setPayment(hourlyRate*OVERTIME_HOURS + ((hourlyRate*1.5f) * exceed)); //for the hours that exceed 80, pay 1.5x hourly rate
+            super.setPayment(hourlyRate*OVERTIME_HOURS + ((hourlyRate*BONUS_RATE) * exceed)); //for the hours that exceed 80, pay 1.5x hourly rate
         }
     }
 
@@ -28,9 +29,7 @@ public class Parttime extends Employee{
         hoursWorked = hours;
     }
 
-    public float getHoursWorked(){
-        return hoursWorked;
-    }
+
 
     @Override
     public String toString() {

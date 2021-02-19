@@ -44,10 +44,10 @@ public class Management extends Fulltime{
                 return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Manager Compensation "+(MAN_BONUS/Employee.PAY_PERIODS);
 
             case DEPARTMENT_HEAD:
-                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Manager Compensation "+(DEP_BONUS/Employee.PAY_PERIODS);
+                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Department Head Compensation "+(DEP_BONUS/Employee.PAY_PERIODS);
 
             case DIRECTOR:
-                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Manager Compensation "+(DIR_BONUS/Employee.PAY_PERIODS);
+                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Director Compensation "+(DIR_BONUS/Employee.PAY_PERIODS);
 
 
             default:

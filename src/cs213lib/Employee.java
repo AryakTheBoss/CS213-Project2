@@ -31,10 +31,6 @@ public class Employee {
         return this.payment;
     }
 
-    public Profile getProfile(){
-        return profile;
-    }
-
     @Override
     public String toString() {
       return profile.toString();
