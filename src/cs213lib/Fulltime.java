@@ -25,7 +25,7 @@ public class Fulltime extends Employee{
 
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("$#,###.##");
+        DecimalFormat df = new DecimalFormat("$#,##0.00");
         return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(annualSalary);
     }
 

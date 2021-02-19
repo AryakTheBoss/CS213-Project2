@@ -38,7 +38,7 @@ public class Management extends Fulltime{
 
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("$#,###.##");
+        DecimalFormat df = new DecimalFormat("$#,##0.00");
         switch(positionType){
             case MANAGER:
                 return super.toString()+"::Manager Compensation "+df.format(MAN_BONUS/Employee.PAY_PERIODS);
