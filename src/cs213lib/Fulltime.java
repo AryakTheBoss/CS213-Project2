@@ -25,13 +25,13 @@ public class Fulltime extends Employee{
 
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("$#,##0.00");
+        DecimalFormat df = new DecimalFormat(Employee.DOLLAR_FORMAT);
         return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(annualSalary);
     }
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        return super.equals(o);
     }
 
 }

@@ -20,15 +20,16 @@ public class Management extends Fulltime{
 
     @Override
     public void calculatePayment(){
+        super.calculatePayment();
         switch(positionType){
             case MANAGER:
-                super.setPayment((super.getAnnualSalary()/Employee.PAY_PERIODS) + (MAN_BONUS/Employee.PAY_PERIODS));
+                super.setPayment(super.getPayment() + (MAN_BONUS/Employee.PAY_PERIODS));
                 break;
             case DEPARTMENT_HEAD:
-                super.setPayment((super.getAnnualSalary()/Employee.PAY_PERIODS) + (DEP_BONUS/Employee.PAY_PERIODS));
+                super.setPayment(super.getPayment() + (DEP_BONUS/Employee.PAY_PERIODS));
                 break;
             case DIRECTOR:
-                super.setPayment((super.getAnnualSalary()/Employee.PAY_PERIODS) + (DIR_BONUS/Employee.PAY_PERIODS));
+                super.setPayment(super.getPayment() + (DIR_BONUS/Employee.PAY_PERIODS));
                 break;
 
             default:
@@ -38,7 +39,7 @@ public class Management extends Fulltime{
 
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("$#,##0.00");
+        DecimalFormat df = new DecimalFormat(Employee.DOLLAR_FORMAT);
         switch(positionType){
             case MANAGER:
                 return super.toString()+"::Manager Compensation "+df.format(MAN_BONUS/Employee.PAY_PERIODS);
@@ -59,7 +60,7 @@ public class Management extends Fulltime{
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        return super.equals(o) && o instanceof Management;
     }
 
 }

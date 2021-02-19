@@ -33,13 +33,13 @@ public class Parttime extends Employee{
 
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("$#,##0.00");
+        DecimalFormat df = new DecimalFormat(Employee.DOLLAR_FORMAT);
         return super.toString()+"::Payment "+df.format(super.getPayment())+"::PART TIME::Hourly Rate "+df.format(hourlyRate)+"::Hours worked this Period: "+hoursWorked;
     }
 
     @Override
     public boolean equals(Object o) {
-        return false;
+        return super.equals(o) && o instanceof Parttime;
     }
 
 }

@@ -7,20 +7,26 @@ public class Employee {
     private Profile profile;
     private float payment = 0.0f;
     public static final int PAY_PERIODS = 26;
+    public static final String DOLLAR_FORMAT = "$#,##0.00";
 
     public Employee(Profile profile){
       this.profile = profile;
     }
 
-    public boolean isPartTime(){
+    public boolean isPartTime() {
         return this instanceof Parttime;
     }
-    public boolean isManager(){
-        return this instanceof Management;
+
+    public Profile getProfile(){
+        return profile;
     }
 
     @Override
     public boolean equals(Object o) {
+       if(o instanceof Employee){
+           Employee other = (Employee) o;
+           return profile.equals(other.getProfile());
+       }
        return false;
     }
 

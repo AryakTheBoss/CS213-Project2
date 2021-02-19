@@ -12,8 +12,11 @@ public class Company {
 
 
     private int find(Employee employee){
+        if(isEmpty()){
+            return -1;
+        }
         for(int i = 0; i< employees.length; i++){ //run through list
-            if(employees[i] != null) { //if the space is empty, add the book there
+            if(employees[i] != null) {
                 if (employees[i].equals(employee)) //if match
                     return i; //return index
             }

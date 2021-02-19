@@ -14,6 +14,18 @@ public class Profile {
         this.dateHired=dateHired;
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public String getDepartment(){
+        return department;
+    }
+
+    public Date getDateHired(){
+        return dateHired;
+    }
+
     @Override
     public String toString() {
         return name+"::"+department+"::"+dateHired;
@@ -21,6 +33,10 @@ public class Profile {
 
     @Override
     public boolean equals(Object o) {
+        if(o instanceof Profile){
+            Profile other = (Profile) o;
+            return this.name.equals(other.getName()) && this.department.equals(other.getDepartment()) && this.dateHired.compareTo(other.getDateHired()) == 0;
+        }
         return false;
     }
 
