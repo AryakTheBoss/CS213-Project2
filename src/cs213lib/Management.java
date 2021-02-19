@@ -41,13 +41,13 @@ public class Management extends Fulltime{
         DecimalFormat df = new DecimalFormat("$#,###.##");
         switch(positionType){
             case MANAGER:
-                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Manager Compensation "+(MAN_BONUS/Employee.PAY_PERIODS);
+                return super.toString()+"::Manager Compensation "+df.format(MAN_BONUS/Employee.PAY_PERIODS);
 
             case DEPARTMENT_HEAD:
-                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Department Head Compensation "+(DEP_BONUS/Employee.PAY_PERIODS);
+                return super.toString()+"::Department Head Compensation "+df.format(DEP_BONUS/Employee.PAY_PERIODS);
 
             case DIRECTOR:
-                return super.toString()+"::Payment "+df.format(super.getPayment())+"::FULL TIME::"+"Annual Salary "+df.format(super.getAnnualSalary())+"::Director Compensation "+(DIR_BONUS/Employee.PAY_PERIODS);
+                return super.toString()+"::Director Compensation "+df.format(DIR_BONUS/Employee.PAY_PERIODS);
 
 
             default:

@@ -33,13 +33,19 @@ public class Company {
 
     }
 
-    public void add(Employee employee){
+    public boolean add(Employee employee){
+
+        int found = find(employee);
+
+        if(found != -1){
+            return false; //employee is already in database
+        }
 
         for(int i=0;i<employees.length;i++){ //run through books array
             if(employees[i]==null) { //found empty spot
                 employees[i] = employee; //set new book to empty spot
                 numEmployee++; //increase books count
-                return;
+                return true;
             }
         }
         //if it gets to here it means its full
@@ -48,9 +54,11 @@ public class Company {
             if(employees[i]==null) { //found empty spot
                 employees[i] = employee; //after growth, insert in new spot
                 numEmployee++; //increase book count
-                return;
+                return true;
             }
         }
+
+        return false;
 
 
     }
@@ -99,11 +107,18 @@ public class Company {
 
     public void processPayments(){
         for(Employee emp : employees){
+            if(emp != null)
             emp.calculatePayment();
         }
     }
 
     public void print(){
+
+        System.out.println("--Printing earning statements for all Employees--");
+        for(Employee e : employees){
+            if(e != null)
+            System.out.println(e);
+        }
 
     }
 
