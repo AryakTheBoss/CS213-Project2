@@ -29,6 +29,9 @@ public class Parttime extends Employee{
         hoursWorked = hours;
     }
 
+    public float getHoursWorked(){
+        return hoursWorked;
+    }
 
 
     @Override

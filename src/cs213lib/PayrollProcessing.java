@@ -21,6 +21,7 @@ public class PayrollProcessing {
         Company cc = new Company();
         String command;
 
+
         System.out.println("Library Kiosk Running.");
         while(true){
             command = in.nextLine();
@@ -47,110 +48,149 @@ public class PayrollProcessing {
                 continue;
             }
             if(command.isEmpty()){
-                System.out.println("Invalid Command!");
+                System.out.println("No Command Entered.");
                 continue;
             }
-            switch(command.charAt(0)){
+            switch(tokens[0]){
 
-                case 'A':
-                    if(tokens.length!=5){
+                case "AP":
+                    if(tokens.length != 5){
                         System.out.println("Invalid Command!");
                         break;
                     }
-                    Date published = new Date(tokens[3]); //the date should be the 3rd argument
-                    if (!published.isValid()) {
+                    Date hired = new Date(tokens[3]); //the date should be the 3rd argument
+                    if (!hired.isValid()) {
                         System.out.println("Invalid Date!");
                         break;
                     }
-                    switch(command.charAt(1)){
-                        case 'P':
-                            Profile profile = new Profile(tokens[1],tokens[2],published);
-                            Employee newEmployee = new Employee(profile);
 
 
-                            cc.add(newEmployee); //added successfully
+                            if(checkDepartment(tokens[2])){
+                                try {
+                                    Profile profile = new Profile(tokens[1], tokens[2], hired);
+                                    Employee newEmployee = new Parttime(profile, Float.parseFloat(tokens[4]), 0);
+                                    if(cc.add(newEmployee)) { //added successfully
+                                        System.out.println("Employee Added.");
+                                    }else{
+                                        System.out.println("Employee is already in the Database");
+                                    }
+                                }catch(NumberFormatException e){
+                                    System.out.println("\""+tokens[4]+"\""+"is not a number.");
+                                }
+                            }else{
+                                System.out.println("\""+tokens[2]+"\""+" is not a valid department code.");
+                                break;
+                            }
 
-                    }
-
-
-                    break;
-
-                case 'R':
-
-                    try {
-                        if (command.charAt(1) != ',') { //if the second char isnt a comma its invalid
-                            System.out.println("Invalid Command!");
                             break;
-                        }
-                        split = command.split(","); //split command by commas
-                        if (split.length != 2) { //if the number of arguments isnt 2 including the R then its a bad command
-                            System.out.println("Invalid Command!");
-                            break;
-                        }
-                        Integer.parseInt(split[1]);
-                        Book toRemove = new Book(split[1], "fake", null); //only need to provide the number
-                        if (!lib.remove(toRemove)) { //does the removing if it exists if not it prints the error
-                            System.out.println("Unable to remove, The Library does not have this book");
-                        } else {
-                            System.out.println("Book#" + split[1] + " removed.");
-                        }
-                    }catch (StringIndexOutOfBoundsException | NumberFormatException e){ //if the command was the only thing entered or the serial number isnt an integer
+                case "AF":
+
+                    if(tokens.length != 5){
                         System.out.println("Invalid Command!");
+                        break;
+                    }
+                     hired = new Date(tokens[3]); //the date should be the 3rd argument
+                    if (!hired.isValid()) {
+                        System.out.println("Invalid Date!");
+                        break;
+                    }
+                    if(checkDepartment(tokens[2])){
+                        try {
+                            Profile profile = new Profile(tokens[1], tokens[2], hired);
+                            Employee newEmployee = new Fulltime(profile, Float.parseFloat(tokens[4]));
+                            if(cc.add(newEmployee)) { //added successfully
+                                System.out.println("Employee Added.");
+                            }else{
+                                System.out.println("Employee is already in the Database");
+                            }
+
+                        }catch(NumberFormatException e){
+                            System.out.println("\""+tokens[4]+"\""+"is not a number.");
+                        }
+                    }else{
+                        System.out.println("\""+tokens[2]+"\""+" is not a valid department code.");
+                        break;
                     }
 
                     break;
-
-                case 'O':
-
-                    try {
-                        if (command.charAt(1) != ',') { //if the 2nd char isnt a comma, its invalid
-                            System.out.println("Invalid Command!");
-                            break;
-                        }
-                        split = command.split(","); //split by commas
-                        if (split.length != 2) { //if the number of arguments isnt 2 including the O then its a bad command
-                            System.out.println("Invalid Command!");
-                            break;
-                        }
-                        Integer.parseInt(split[1]); //testing if its an int
-                        Book toCheckOut = new Book(split[1], "fake", null); //only need to provide the number
-                        if (!lib.checkOut(toCheckOut)) { //does the checking out if it exists or is not already checked out if not it prints the error
-                            System.out.println("Book#" + split[1] + " is not available.");
-                        } else {
-                            System.out.println("You've checked out Book#" + split[1] + ". Enjoy!");
-                        }
-                    }catch(StringIndexOutOfBoundsException | NumberFormatException e){
+                case "AM":
+                    if(tokens.length != 6){
                         System.out.println("Invalid Command!");
+                        break;
                     }
+                     hired = new Date(tokens[3]); //the date should be the 3rd argument
+                    if (!hired.isValid()) {
+                        System.out.println("Invalid Date!");
+                        break;
+                    }
+                    if(checkDepartment(tokens[2])){
+                        try {
+                            Profile profile = new Profile(tokens[1], tokens[2], hired);
+                            int mgmtCode = Integer.parseInt(tokens[5]);
+                            if(mgmtCode >= 1 && mgmtCode <= 3){
+                                Employee newEmployee = new Management(profile, Float.parseFloat(tokens[4]),mgmtCode);
+                                if(cc.add(newEmployee)) { //added successfully
+                                    System.out.println("Employee Added.");
+                                }else{
+                                    System.out.println("Employee is already in the Database");
+                                }
+                            }else{
+                                System.out.println("Invalid Management Code.");
+                            }
+
+                        }catch(NumberFormatException e){
+                            System.out.println("\""+tokens[4]+"\""+"is not a number OR"+"\""+tokens[5]+"\""+" is not a number.");
+                        }
+                    }else{
+                        System.out.println("\""+tokens[2]+"\""+" is not a valid department code.");
+                        break;
+                    }
+
                     break;
 
-                case 'I':
+                case "R": //TODO
 
-                    try {
-                        if (command.charAt(1) != ',') { //if second char isnt a comma its invalid
-                            System.out.println("Invalid Command!");
-                            break;
-                        }
-                        split = command.split(","); //split by commas
-                        if (split.length != 2) { //if the number of arguments isnt 2 including the R then its a bad command
-                            System.out.println("Invalid Command!");
-                            break;
-                        }
-                        Integer.parseInt(split[1]); //test if the argument is an int
-                        Book toReturn = new Book(split[1], "fake", null); //only need to provide the number
-                        if (!lib.returns(toReturn)) { //does the returning if it exists and is checked out if not it prints the error
-                            System.out.println("Unable to return Book#" + split[1] + ".");
-                        } else {
-                            System.out.println("Book#" + split[1] + " return has completed. Thanks!");
-                        }
-                    }catch(StringIndexOutOfBoundsException | NumberFormatException e){ //if its not an int or I was the only thing entered
+
+
+                    break;
+
+                case "C":
+                    if(tokens.length!=1){
                         System.out.println("Invalid Command!");
+                        break;
                     }
+
+                        cc.processPayments();
+                        System.out.println("Calculation of employee payments is done.");
+
                     break;
 
-                case 'Q':
+                case "S":
 
-                    System.out.println("Kiosk Session Ended.");
+                    if(tokens.length != 5){
+                        System.out.println("Invalid Command!");
+                        break;
+                    }
+                    hired = new Date(tokens[3]); //the date should be the 3rd argument
+                    if (!hired.isValid()) {
+                        System.out.println("Invalid Date!");
+                        break;
+                    }
+                    if(checkDepartment(tokens[2])){
+                        Profile profile = new Profile(tokens[1], tokens[2], hired);
+                        Employee newEmployee = new Parttime(profile, 0, Float.parseFloat(tokens[4]));
+                        if(cc.setHours(newEmployee)){
+                            System.out.println("Working hours set.");
+                        }else{
+                            System.out.println("Employee doesn't exist or is not Part-Time");
+                        }
+                    }
+
+                    break;
+
+                case "Q":
+
+                    System.out.println("Payroll Processing Ended.");
                     System.exit(0); //Quit the session
                     break;
 
@@ -159,6 +199,10 @@ public class PayrollProcessing {
                     break;
             }
         }
+    }
+
+    private boolean checkDepartment(String dep){
+        return dep.equals("ECE") || dep.equals("CS") || dep.equals("IT");
     }
 
 }
