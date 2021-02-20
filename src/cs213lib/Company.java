@@ -69,7 +69,7 @@ public class Company {
     public boolean remove(Employee employee){
         int found = find(employee); //find index, store
         //check if now in an index past the book
-        if(found == -1){ //if book doesnt exist
+        if(found == -1){ //if book does not exist
             return false; //didn't happen
         }
         else{
@@ -125,12 +125,58 @@ public class Company {
 
     }
 
-    public void printByDepartment(){
-
+    public void printByDepartment(){ //print by date sorted method
+        if(isEmpty()){ //if the array has no books in it
+            System.out.println("Employee database is empty.");
+            return;
+        }
+        System.out.println("--Printing earning statements by date hired--");
+        for (int outside = 0; outside < numEmployee-1; outside++) //for each book
+            for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each book
+                if(employees[inside] != null && employees[inside+1] != null) { //if neither book is null
+                    if (employees[inside].getProfile().getDepartment().compareTo(employees[inside+1].getProfile().getDepartment()) >0) {
+                        //if the date is greater than the next
+                        // swap arr[j+1] and arr[j]
+                        Employee temp = employees[inside]; //save the next employee as a temp value
+                        employees[inside] = employees[inside + 1]; //set the current employee to be the next
+                        employees[inside + 1] = temp; //set replaced employee to value of temp, to swap them
+                    }
+                }
+            }
+        for (Employee employee : employees) { //for each employee
+            if (employee != null) //if it exists
+                System.out.println(employee); //print their name
+        }
+        System.out.println("**End of List.");
     }
 
-    public void printByDate(){ //print by date hired
 
+
+
+    public void printByDate(){ //print by date hired
+        if(isEmpty()){ //if the array has no employees in it
+            System.out.println("Employee database is empty.");
+            return;
+        }
+        System.out.println("--Printing earning statements by date hired--");
+
+        for (int outside = 0; outside < numEmployee-1; outside++) //for each employees
+            for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each employees
+                if(employees[inside] != null && employees[inside+1] != null) { //if neither employee is null
+                    if (employees[inside].getProfile().getDateHired().compareTo(employees[inside+1].getProfile().getDateHired()) ==1) {
+                        //if the date is greater than the next
+                        // swap arr[j+1] and arr[j]
+                        Employee temp = employees[inside]; //save the next employee as a temp value
+                        employees[inside] = employees[inside + 1]; //set the current employee to be the next
+                        employees[inside + 1] = temp; //set replaced employee to value of temp, to swap them
+                    }
+                }
+            }
+        for (Employee employee : employees) { //for each employee
+            if (employee != null) //if it exists
+                System.out.println(employee); //print their name
+        }
+        System.out.println("**End of List.");
     }
 
 }
