@@ -58,6 +58,10 @@ public class PayrollProcessing {
                         System.out.println("Invalid Command!");
                         break;
                     }
+                    if(Integer.parseInt(tokens[4])<0){
+                        System.out.println("Invalid Pay!");
+                        break;
+                    }
                     Date hired = new Date(tokens[3]); //the date should be the 3rd argument
                     if (!hired.isValid()) {
                         System.out.println("Invalid Date!");
@@ -94,6 +98,10 @@ public class PayrollProcessing {
                         System.out.println("Invalid Date!");
                         break;
                     }
+                    if(Integer.parseInt(tokens[4])<0){
+                        System.out.println("Invalid Pay!");
+                        break;
+                    }
                     if(checkDepartment(tokens[2])){
                         try {
                             Profile profile = new Profile(tokens[1], tokens[2], hired);
@@ -123,6 +131,10 @@ public class PayrollProcessing {
                         System.out.println("Invalid Date!");
                         break;
                     }
+                    if(Integer.parseInt(tokens[4])<0){
+                        System.out.println("Invalid Pay!");
+                        break;
+                    }
                     if(checkDepartment(tokens[2])){
                         try {
                             Profile profile = new Profile(tokens[1], tokens[2], hired);
@@ -148,9 +160,27 @@ public class PayrollProcessing {
 
                     break;
 
-                case "R": //TODO
-
-
+                case "R":
+                    try {
+                        if (command.charAt(1) != ' ') { //if the second char isnt a space its invalid
+                            System.out.println("Invalid Command!");
+                            break;
+                        }
+                        if (tokens.length != 4) { //if the number of arguments isnt 2 including the R then its a bad command
+                            System.out.println("Invalid Command!");
+                            break;
+                        }
+                        Date date = new Date(tokens[3]);
+                        Profile profile = new Profile(tokens[1],tokens[2],date);
+                        Employee toRemove = new Employee(profile); //only need to provide the correct profile
+                        if (!cc.remove(toRemove)) { //does the removing if it exists if not it prints the error
+                            System.out.println("Unable to remove, The Library does not have this book");
+                        } else {
+                            System.out.println("Employee removed.");
+                        }
+                    }catch (StringIndexOutOfBoundsException | NumberFormatException e){ //if the command was the only thing entered or the serial number isnt an integer
+                        System.out.println("Invalid Command!");
+                    }
 
                     break;
 
@@ -178,7 +208,11 @@ public class PayrollProcessing {
                     }
                     if(checkDepartment(tokens[2])){
                         Profile profile = new Profile(tokens[1], tokens[2], hired);
-                        Employee newEmployee = new Parttime(profile, 0, Float.parseFloat(tokens[4]));
+                        float hours = Float.parseFloat(tokens[4]);
+                        if(hours<=0||hours>=100){
+                            System.out.println("Invalid amount of hours.");
+                        }
+                        Employee newEmployee = new Parttime(profile, 0, hours);
                         if(cc.setHours(newEmployee)){
                             System.out.println("Working hours set.");
                         }else{
