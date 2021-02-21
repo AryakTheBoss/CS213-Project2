@@ -117,13 +117,22 @@ public class Company {
     }
 
     public void processPayments(){
+        if(isEmpty()){
+            System.out.println("Employee Database is empty.");
+            return;
+        }
         for(Employee emp : employees){
             if(emp != null)
             emp.calculatePayment();
         }
+        System.out.println("Calculation of employee payments is done.");
     }
 
     public void print(){
+        if(isEmpty()){
+            System.out.println("Employee Database is empty.");
+            return;
+        }
 
         System.out.println("--Printing earning statements for all Employees--");
         for(Employee e : employees){
@@ -139,11 +148,11 @@ public class Company {
             return;
         }
         System.out.println("--Printing earning statements by department--");
-        for (int outside = 0; outside < numEmployee-1; outside++) //for each book
-            for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each book
-                if(employees[inside] != null && employees[inside+1] != null) { //if neither book is null
+        for (int outside = 0; outside < numEmployee-1; outside++)
+            for (int inside = 0; inside < numEmployee-outside-1; inside++) {
+                if(employees[inside] != null && employees[inside+1] != null) {
                     if (employees[inside].getProfile().getDepartment().compareTo(employees[inside+1].getProfile().getDepartment()) >0) {
-                        //if the date is greater than the next
+
                         // swap arr[j+1] and arr[j]
                         Employee temp = employees[inside]; //save the next employee as a temp value
                         employees[inside] = employees[inside + 1]; //set the current employee to be the next

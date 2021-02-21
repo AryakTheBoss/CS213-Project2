@@ -176,7 +176,7 @@ public class PayrollProcessing {
                     }
 
                         cc.processPayments();
-                        System.out.println("Calculation of employee payments is done.");
+
 
                     break;
 
