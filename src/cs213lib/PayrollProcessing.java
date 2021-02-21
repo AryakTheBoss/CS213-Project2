@@ -171,7 +171,7 @@ public class PayrollProcessing {
 
                 case "C":
                     if(tokens.length!=1){
-                        System.out.println("Invalid Command!");
+                        System.out.println("Too many arguments.");
                         break;
                     }
 
@@ -183,7 +183,7 @@ public class PayrollProcessing {
                 case "S":
 
                     if(tokens.length != 5){
-                        System.out.println("Invalid Command!");
+                        System.out.println("Insufficient Arguments.");
                         break;
                     }
                     hired = new Date(tokens[3]); //the date should be the 3rd argument
