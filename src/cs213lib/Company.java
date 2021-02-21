@@ -29,9 +29,9 @@ public class Company {
      */
     private void grow(){ //returns larger size array
         Employee[] newBookArray = new Employee[employees.length+4]; //increase array length by 4, to copy over
-        for(int i=0;i<employees.length;i++){ //run through book array
-            newBookArray[i] = employees[i]; //copy over every element
-        }
+        //run through book array
+        //copy over every element
+        System.arraycopy(employees, 0, newBookArray, 0, employees.length);
         employees = newBookArray; //set books to new bigger array
 
     }

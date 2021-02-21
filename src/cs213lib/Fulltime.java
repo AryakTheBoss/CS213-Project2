@@ -19,9 +19,7 @@ public class Fulltime extends Employee{
 
     }
 
-    public float getAnnualSalary(){
-        return annualSalary;
-    }
+
 
     @Override
     public String toString() {

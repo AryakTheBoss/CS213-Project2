@@ -13,7 +13,7 @@ public class Date implements Comparable<Date>{
 
   /**
    * Creates a new date using a string with format mm/dd/yyyy
-   * @param date
+   * @param date a date string
    */
   public Date(String date) {
     String[] data = date.split("/");
