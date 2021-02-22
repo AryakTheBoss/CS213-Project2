@@ -157,7 +157,7 @@ public class PayrollProcessing {
                         }
                         Date date = new Date(tokens[3]);
                         Profile profile = new Profile(tokens[1],tokens[2],date);
-                        Employee toRemove = new Employee(profile,'U'); //only need to provide the correct profile
+                        Employee toRemove = new Employee(profile,'U'); //only need to provide the correct profile and unknown employee type
                         if (!cc.remove(toRemove)) { //does the removing if it exists if not it prints the error
                             System.out.println("Employee does not exist.");
                         } else {

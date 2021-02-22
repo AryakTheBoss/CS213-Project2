@@ -36,4 +36,17 @@ public class Fulltime extends Employee{
         }
     }
 
+    /**
+     * Protected version of the equals() method only visible to Management class.
+     * @param o
+     * @return
+     */
+    protected boolean equalsManager(Object o) {
+        if(!super.isUnknown()) {
+            return super.equals(o) && super.isManager();
+        }else{
+            return super.equals(o);
+        }
+    }
+
 }

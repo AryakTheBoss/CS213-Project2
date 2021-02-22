@@ -36,7 +36,12 @@ public class CompanyTester {
         Assertions.assertTrue(a && b && c && d); //these should all be true
         //now to test remove()
        Assertions.assertTrue(cc.remove(new Employee(new Profile("Charlie,Jane", "CS", new Date("7/12/2020")),'U'))); //should remove successfully
-        Assertions.assertFalse(cc.remove(new Employee(new Profile("DoesntNotExist,Definitely", "ECE", new Date("7/18/2020")),'U'))); //should not remove since does not exist
+        Assertions.assertFalse(cc.remove(new Employee(new Profile("DoesntExist,Definitely", "ECE", new Date("7/18/2020")),'U'))); //should not remove since does not exist
+        Assertions.assertFalse(cc.remove(new Employee(new Profile("Charlie,Jane", "CS", new Date("7/12/2020")),'U'))); //try to remove previously removed employee
+        Assertions.assertFalse(cc.remove(new Employee(new Profile("Someone,Else", "IT", new Date("7/12/2020")),'U'))); //wrong department
+        Assertions.assertTrue(cc.remove(new Employee(new Profile("Super,Mario", "IT", new Date("7/18/2020")),'U')));
+        Assertions.assertTrue(cc.remove(new Employee(new Profile("Doe,Jane", "CS", new Date("7/12/2020")),'U')));
+        Assertions.assertTrue(cc.remove(new Employee(new Profile("Someone,Else", "ECE", new Date("7/12/2020")),'U')));
 
     }
 

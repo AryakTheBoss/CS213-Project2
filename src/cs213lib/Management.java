@@ -61,8 +61,9 @@ public class Management extends Fulltime{
 
     @Override
     public boolean equals(Object o) {
+
         if(!super.isUnknown()) {
-            return super.equals(o) && super.isManager();
+            return super.equalsManager(o);
         }else{
             return super.equals(o);
         }

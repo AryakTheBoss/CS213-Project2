@@ -25,6 +25,7 @@ public class Employee {
         return employeeType == 'F';
     }
     public boolean isManager() {
+
         return employeeType == 'M';
     }
     public boolean isUnknown(){
@@ -40,6 +41,7 @@ public class Employee {
     public boolean equals(Object o) {
        if(o instanceof Employee){
            Employee other = (Employee) o;
+
            return profile.equals(other.getProfile());
        }
        return false;
