@@ -5,16 +5,32 @@ public class Employee {
 
     private Profile profile;
     private float payment = 0.0f;
+    private char employeeType;
     public static final int PAY_PERIODS = 26;
     public static final String DOLLAR_FORMAT = "$#,##0.00";
 
-    public Employee(Profile profile){
+
+    public Employee(Profile profile, char employeeType){
       this.profile = profile;
+      this.employeeType = employeeType;
+    }
+    public void setManager(){
+        employeeType = 'M';
     }
 
     public boolean isPartTime() {
-        return this instanceof Parttime;
+        return employeeType == 'P';
     }
+    public boolean isFullTime() {
+        return employeeType == 'F';
+    }
+    public boolean isManager() {
+        return employeeType == 'M';
+    }
+    public boolean isUnknown(){
+        return employeeType == 'U';
+    }
+
 
     public Profile getProfile(){
         return profile;

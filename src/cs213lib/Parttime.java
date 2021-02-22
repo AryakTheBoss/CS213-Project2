@@ -11,7 +11,7 @@ public class Parttime extends Employee{
 
 
     public Parttime(Profile profile, float hourlyRate, float hoursWorked) {
-        super(profile);
+        super(profile,'P');
         this.hourlyRate = hourlyRate;
         this.hoursWorked = hoursWorked;
     }
@@ -42,7 +42,11 @@ public class Parttime extends Employee{
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o) && o instanceof Parttime;
+        if(!super.isUnknown()) {
+            return super.equals(o) && super.isPartTime();
+        }else{
+            return super.equals(o);
+        }
     }
 
 }

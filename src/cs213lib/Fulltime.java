@@ -8,7 +8,7 @@ public class Fulltime extends Employee{
 
 
     public Fulltime(Profile profile, float annualSalary) {
-        super(profile);
+        super(profile,'F');
         this.annualSalary = annualSalary;
     }
 
@@ -29,7 +29,11 @@ public class Fulltime extends Employee{
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        if(!super.isUnknown()) {
+            return super.equals(o) && super.isFullTime();
+        }else{
+            return super.equals(o);
+        }
     }
 
 }

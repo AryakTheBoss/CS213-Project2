@@ -16,6 +16,7 @@ public class Management extends Fulltime{
     public Management(Profile profile,float annualSalary, int positionType) {
         super(profile,annualSalary);
         this.positionType = positionType;
+        super.setManager();
     }
 
     @Override
@@ -60,7 +61,11 @@ public class Management extends Fulltime{
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o) && o instanceof Management;
+        if(!super.isUnknown()) {
+            return super.equals(o) && super.isManager();
+        }else{
+            return super.equals(o);
+        }
     }
 
 }
