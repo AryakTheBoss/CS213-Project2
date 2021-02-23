@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class CompanyTester {
+public class CompanyJUnitTester {
 
     @Test
     @DisplayName("Test Company add() Method")
