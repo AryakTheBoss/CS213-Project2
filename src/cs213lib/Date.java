@@ -125,17 +125,13 @@ public class Date implements Comparable<Date>{
   @Override
   public int compareTo(Date o) { //returns -1 if date given is before, 1 if after and 0 if equal
     Calendar thisDate = Calendar.getInstance();
-    Calendar other = thisDate;
+
     thisDate.set(year,month,day);
+
+    Calendar other = Calendar.getInstance();
     other.set(o.getYear(),o.getMonth(),o.getDay());
 
-    if(thisDate.before(other)){
-      return -1;
-    }else if(thisDate.after(other)){
-      return 1;
-    }else{
-      return 0;
-    }
+    return thisDate.compareTo(other);
 
   }
 }

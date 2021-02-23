@@ -19,6 +19,7 @@ public class CompanyTester {
         Assertions.assertFalse(cc.add(new Management(new Profile("Charlie,Jane", "CS", new Date("7/12/2020")), 40000,2))); //try to add same employee but as a manager, should fail
         Assertions.assertTrue(cc.add(new Management(new Profile("Someone,Else", "ECE", new Date("7/12/2020")), 40000,2)));
 
+
     }
 
     @Test
@@ -42,6 +43,26 @@ public class CompanyTester {
         Assertions.assertTrue(cc.remove(new Employee(new Profile("Super,Mario", "IT", new Date("7/18/2020")),'U')));
         Assertions.assertTrue(cc.remove(new Employee(new Profile("Doe,Jane", "CS", new Date("7/12/2020")),'U')));
         Assertions.assertTrue(cc.remove(new Employee(new Profile("Someone,Else", "ECE", new Date("7/12/2020")),'U')));
+
+    }
+
+    @Test
+    @DisplayName("Test Company setHours() Method")
+    public void assertSetHours(){
+
+        Company cc = new Company();
+        boolean a,b,c;
+        a= cc.add(new Fulltime(new Profile("Doe,Jane", "CS", new Date("4/16/2020")), 50000));
+        b= cc.add(new Parttime(new Profile("Charlie,Jane", "IT", new Date("3/12/2020")), 45.6f,0));
+        c= cc.add(new Management(new Profile("Someone,Else", "CS", new Date("8/16/2020")), 66000,3));
+
+
+
+        Assertions.assertTrue(a && b && c);
+        Assertions.assertTrue(cc.setHours(new Parttime(new Profile("Charlie,Jane", "IT", new Date("3/12/2020")),0,70))); //sethours of someone who is partime and exists
+        Assertions.assertFalse(cc.setHours(new Management(new Profile("Someone,Else", "CS", new Date("8/16/2020")), 66000,3))); //try to set hours of someone whos not parttime
+        Assertions.assertFalse(cc.setHours(new Employee(new Profile("Doe,Jane", "CS", new Date("4/16/2020")),'U'))); //set hours of someone who is not parttime but using an Employee object
+        Assertions.assertFalse(cc.setHours(new Parttime(new Profile("Jane,Else", "CS", new Date("8/16/2020")),67,0))); //try to set hours of someone who doesnt exist
 
     }
 

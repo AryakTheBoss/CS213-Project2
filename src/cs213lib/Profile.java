@@ -35,7 +35,7 @@ public class Profile {
     public boolean equals(Object o) {
         if(o instanceof Profile){
             Profile other = (Profile) o;
-            return this.name.equals(other.getName()) && this.department.equals(other.getDepartment()) && this.dateHired.compareTo(other.getDateHired()) == 0;
+            return this.name.equals(other.getName()) && this.department.equals(other.getDepartment()) && this.dateHired.toString().equals(other.getDateHired().toString());
         }
         return false;
     }

@@ -180,9 +180,11 @@ public class Company {
         for (int outside = 0; outside < numEmployee-1; outside++) //for each employees
             for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each employees
                 if(employees[inside] != null && employees[inside+1] != null) { //if neither employee is null
+
                     if (employees[inside].getProfile().getDateHired().compareTo(employees[inside + 1].getProfile().getDateHired()) > 0) {
                         //if the date is greater than the next
                         // swap arr[j+1] and arr[j]
+
                         Employee temp = employees[inside]; //save the next employee as a temp value
                         employees[inside] = employees[inside + 1]; //set the current employee to be the next
                         employees[inside + 1] = temp; //set replaced employee to value of temp, to swap them
