@@ -4,6 +4,17 @@ import java.util.StringTokenizer;
 
 public class PayrollProcessing {
 
+
+
+    public static final int MINREQUIREMENTSONE = 1;
+    public static final int MINREQUIREMENTSSECOND = 2;
+    public static final int MINREQUIREMENTSTHREE = 3;
+    public static final int MINREQUIREMENTSFOUR = 4;
+    public static final int MINREQUIREMENTSFIVE = 5;
+    public static final int MINREQUIREMENTSSIX = 6;
+
+
+
     public void run(){
 
         Scanner in = new Scanner(System.in);
@@ -44,7 +55,7 @@ public class PayrollProcessing {
             switch(tokens[0]){
 
                 case "AP":
-                    if(tokens.length != 5){
+                    if(tokens.length != MINREQUIREMENTSFIVE){
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
@@ -79,11 +90,11 @@ public class PayrollProcessing {
                             break;
                 case "AF":
                     //minimum 5 requirements
-                    if(tokens.length != 5){
+                    if(tokens.length != MINREQUIREMENTSFIVE){
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
-                    
+
                      hired = new Date(tokens[3]); //the date should be the 3rd argument
                     if (!hired.isValid()) {
                         System.out.println("Invalid Date!");
@@ -113,7 +124,7 @@ public class PayrollProcessing {
 
                     break;
                 case "AM":
-                    if(tokens.length != 6){
+                    if(tokens.length != MINREQUIREMENTSSIX){
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
@@ -154,7 +165,7 @@ public class PayrollProcessing {
                 case "R":
                     try {
 
-                        if (tokens.length != 4) {
+                        if (tokens.length != MINREQUIREMENTSFOUR) {
                             System.out.println("Insufficient Arguments.");
                             break;
                         }
@@ -177,7 +188,7 @@ public class PayrollProcessing {
                     break;
 
                 case "C":
-                    if(tokens.length!=1){
+                    if(tokens.length!=MINREQUIREMENTSONE){
                         System.out.println("Too many arguments.");
                         break;
                     }
@@ -189,7 +200,7 @@ public class PayrollProcessing {
 
                 case "S":
 
-                    if(tokens.length != 5){
+                    if(tokens.length != MINREQUIREMENTSFIVE){
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
