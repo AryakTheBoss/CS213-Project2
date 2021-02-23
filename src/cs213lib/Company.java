@@ -2,17 +2,23 @@ package cs213lib;
 
 public class Company {
 
-    private Employee[] employees;
-    private int numEmployee;
+    private Employee[] employees; //array to store employees in Company
+    private int numEmployee; //track the count of employees
 
+    /*
+    Constructor for Company
+    */
     public Company(){
         employees = new Employee[4]; //initialize with 4 books
         numEmployee = 0; //but still empty
     }
 
 
+    /*
+    finds the index of the employee being searched for within employees array
+    */
     private int find(Employee employee){
-        if(isEmpty()){
+        if(isEmpty()){ //if nothing inside, return false
             return -1;
         }
         for(int i = 0; i< employees.length; i++){ //run through list
@@ -28,31 +34,33 @@ public class Company {
      * Grows the bag by 4 spaces.
      */
     private void grow(){ //returns larger size array
-        Employee[] newBookArray = new Employee[employees.length+4]; //increase array length by 4, to copy over
-        //run through book array
+        Employee[] newEmployeeArray = new Employee[employees.length+4]; //increase array length by 4, to copy over
+        //run through employee array
         //copy over every element
         System.arraycopy(employees, 0, newBookArray, 0, employees.length);
-        employees = newBookArray; //set books to new bigger array
-
+        employees = newEmployeeArray; //set books to new bigger array
     }
 
+    /*
+    add a new employee to the employee array
+    */
     public boolean add(Employee employee){
 
-        int found = find(employee);
+        int found = find(employee); //store index of the employee
 
-        if(found != -1){
+        if(found != -1){ //if found
             return false; //employee is already in database
         }
 
-        for(int i=0;i<employees.length;i++){ //run through books array
+        for(int i=0;i<employees.length;i++){ //run through employee array
             if(employees[i]==null) { //found empty spot
-                employees[i] = employee; //set new book to empty spot
-                numEmployee++; //increase books count
+                employees[i] = employee; //set new employee to empty spot
+                numEmployee++; //increase employee count
                 return true;
             }
         }
         //if it gets to here it means its full
-        grow();
+        grow(); //increase size
         for(int i=0;i<employees.length;i++){
             if(employees[i]==null) { //found empty spot
                 employees[i] = employee; //after growth, insert in new spot
@@ -62,23 +70,24 @@ public class Company {
         }
 
         return false;
-
-
     }
 
+    /*
+    remove the employee from the employees array
+    */
     public boolean remove(Employee employee){
         int found = find(employee); //find index, store
-        //check if now in an index past the book
-        if(found == -1){ //if book does not exist
+        //check if now in an index past the employee
+        if(found == -1){ //if employee does not exist
             return false; //didn't happen
         }
         else{
-            employees[found] = null; //remove the book set it to null
-            numEmployee-=1; //reduce book count
-            if(found != employees.length-1) { //if the book does not equal to the very end
-                for (int i = found; i < employees.length; i++) { //this loop shifts all the books to the right of the removed book down by 1
+            employees[found] = null; //remove the employee set it to null
+            numEmployee-=1; //reduce employee count
+            if(found != employees.length-1) { //if the employee does not equal to the very end
+                for (int i = found; i < employees.length; i++) { //this loop shifts all the employee to the right of the removed employee down by 1
                     if(i+1 != employees.length) //if there is more space in the array
-                        employees[i] = employees[i+1]; //put the new book there
+                        employees[i] = employees[i+1]; //put the new employee there
                     else
                         employees[i] = null; //this is the last space in the array, place it there
                 }
@@ -87,21 +96,24 @@ public class Company {
         }
     }
 
+    /*
+    setter method for employee hours
+    */
     public boolean setHours(Employee employee){
-        if(employee.isPartTime()){
+        if(employee.isPartTime()){//if they are part time
 
-            int i = find(employee);
-            if(i != -1){
-                if(employees[i].isPartTime()){
+            int i = find(employee); //find index
+            if(i != -1){ //if not false
+                if(employees[i].isPartTime()){ //if part time
                     Parttime p = (Parttime)employees[i];
                     Parttime p2 = (Parttime)employee;
                     p.setHoursWorked(p2.getHoursWorked());
-                    return true;
+                    return true; //done
                 }
             }
 
         }
-        return false;
+        return false; //not a part time employee
     }
 
     /**
@@ -116,42 +128,55 @@ public class Company {
         return true; //else has books
     }
 
+    /*
+    run calculatePayment for each employee
+    */
     public void processPayments(){
-        if(isEmpty()){
+        if(isEmpty()){ //if no employees
             System.out.println("Employee Database is empty.");
             return;
         }
-        for(Employee emp : employees){
-            if(emp != null)
-            emp.calculatePayment();
+        for(Employee emp : employees){ //for each employee
+            if(emp != null) //if the employee exists
+            emp.calculatePayment(); // calculatePayment()
         }
         System.out.println("Calculation of employee payments is done.");
     }
 
+    /*
+    print all employees' earning statements out
+    */
     public void print(){
-        if(isEmpty()){
+        if(isEmpty()){ //if no employees
             System.out.println("Employee Database is empty.");
             return;
         }
 
+        //print the earning statements
         System.out.println("--Printing earning statements for all Employees--");
-        for(Employee e : employees){
-            if(e != null)
-            System.out.println(e);
+        for(Employee e : employees){ //for each employee
+            if(e != null) //if the employee exists
+              System.out.println(e);
         }
 
     }
 
+    /*
+    print all employees in order of the departments: cs, ee, iti
+    */
     public void printByDepartment(){
-        if(isEmpty()){
+        if(isEmpty()){ //if no employees
             System.out.println("Employee database is empty.");
             return;
         }
         System.out.println("--Printing earning statements by department--");
-        for (int outside = 0; outside < numEmployee-1; outside++)
-            for (int inside = 0; inside < numEmployee-outside-1; inside++) {
-                if(employees[inside] != null && employees[inside+1] != null) {
+
+        //begin bubble sort
+        for (int outside = 0; outside < numEmployee-1; outside++) //outer loop
+            for (int inside = 0; inside < numEmployee-outside-1; inside++) { //inner loop
+                if(employees[inside] != null && employees[inside+1] != null) { //if the employees being compared are not out of order
                     if (employees[inside].getProfile().getDepartment().compareTo(employees[inside+1].getProfile().getDepartment()) >0) {
+                        //if the employee's department is out of order
 
                         // swap arr[j+1] and arr[j]
                         Employee temp = employees[inside]; //save the next employee as a temp value
@@ -169,7 +194,9 @@ public class Company {
 
 
 
-
+    /*
+    print employees in order of their date hired
+    */
     public void printByDate(){ //print by date hired
         if(isEmpty()){ //if the array has no employees in it
             System.out.println("Employee database is empty.");

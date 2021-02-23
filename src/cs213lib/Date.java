@@ -16,11 +16,11 @@ public class Date implements Comparable<Date>{
    * @param date a date string
    */
   public Date(String date) {
-    String[] data = date.split("/");
+    String[] data = date.split("/"); //split the entered date by '/'
     try {
-      year = Integer.parseInt(data[2]);
+      year = Integer.parseInt(data[2]); //year is first argument
       month = Integer.parseInt(data[0])-1; //subtract 1 so it works with the calendar class's constants (January is 0 in Calendar)
-      day = Integer.parseInt(data[1]);
+      day = Integer.parseInt(data[1]); //day is last argument
     }catch(NumberFormatException | IndexOutOfBoundsException nfe){ //error in parsing date
       year=-1;
       month=-1;
@@ -117,21 +117,25 @@ public class Date implements Comparable<Date>{
 
   }
 
+  /*convert the date to a usable string*/
   @Override
   public String toString() {
-    return (month+1)+"/"+day+"/"+year;
+    return (month+1)+"/"+day+"/"+year; //formatting for the date
   }
 
+  /*
+  compare the date values given, determine which comes first
+  */
   @Override
   public int compareTo(Date o) { //returns -1 if date given is before, 1 if after and 0 if equal
     Calendar thisDate = Calendar.getInstance();
 
-    thisDate.set(year,month,day);
+    thisDate.set(year,month,day); //set the thisDate temp value to these values
 
-    Calendar other = Calendar.getInstance();
-    other.set(o.getYear(),o.getMonth(),o.getDay());
+    Calendar other = Calendar.getInstance(); //set second temp value to other
+    other.set(o.getYear(),o.getMonth(),o.getDay()); //set the temp values
 
-    return thisDate.compareTo(other);
+    return thisDate.compareTo(other); //return the values for compareTo
 
   }
 }

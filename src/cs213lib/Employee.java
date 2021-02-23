@@ -3,9 +3,9 @@ package cs213lib;
 
 public class Employee {
 
-    private Profile profile;
-    private float payment = 0.0f;
-    private char employeeType;
+    private Profile profile; //profile for employee
+    private float payment = 0.0f; //payment float
+    private char employeeType; //parttime fulltime Management
     public static final int PAY_PERIODS = 26;
     public static final String DOLLAR_FORMAT = "$#,##0.00";
 
@@ -14,51 +14,74 @@ public class Employee {
       this.profile = profile;
       this.employeeType = employeeType;
     }
+    /*
+    setter for Manager employeetype
+    */
     public void setManager(){
         employeeType = 'M';
     }
-
+    /*
+    check if parttime employeetype
+    */
     public boolean isPartTime() {
         return employeeType == 'P';
     }
+    /*
+    check for fulltime employeetype
+    */
     public boolean isFullTime() {
         return employeeType == 'F';
     }
+    /*
+    check if Manager employeetype
+    */
     public boolean isManager() {
 
         return employeeType == 'M';
     }
+    /*
+    check if employeetype unknown
+    */
     public boolean isUnknown(){
         return employeeType == 'U';
     }
 
-
+    /*
+    getter for employeeprofile
+    */
     public Profile getProfile(){
         return profile;
     }
-
+    /*
+    if this employee is the employee in argument, return true
+    */
     @Override
     public boolean equals(Object o) {
-       if(o instanceof Employee){
-           Employee other = (Employee) o;
+       if(o instanceof Employee){ //if o is an employee
+           Employee other = (Employee) o; //casts o as an employee object
 
-           return profile.equals(other.getProfile());
+           return profile.equals(other.getProfile()); //return if they are the same
        }
-       return false;
+       return false; //else false
     }
-
+    /*
+    setter for payment
+    */
     public void setPayment(float payment){
         this.payment = payment;
     }
+    /*
+    getter for payment
+    */
     public float getPayment(){
         return this.payment;
     }
-
+    //convert employee information to string
     @Override
     public String toString() {
       return profile.toString();
     }
-
+    //calculatePayment
     public void calculatePayment(){ }//leave blank
 
 
