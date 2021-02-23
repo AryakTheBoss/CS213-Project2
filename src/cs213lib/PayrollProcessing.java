@@ -60,6 +60,7 @@ public class PayrollProcessing {
 
                             if(checkDepartment(tokens[2])){
                                 try {
+                                    //second and third arguments of input command correspond to profile arguments
                                     Profile profile = new Profile(tokens[1], tokens[2], hired);
                                     Employee newEmployee = new Parttime(profile, Float.parseFloat(tokens[4]), 0);
                                     if(cc.add(newEmployee)) { //added successfully
@@ -77,11 +78,12 @@ public class PayrollProcessing {
 
                             break;
                 case "AF":
-
+                    //minimum 5 requirements
                     if(tokens.length != 5){
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
+                    
                      hired = new Date(tokens[3]); //the date should be the 3rd argument
                     if (!hired.isValid()) {
                         System.out.println("Invalid Date!");

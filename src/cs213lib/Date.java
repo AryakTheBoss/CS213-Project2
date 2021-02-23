@@ -10,6 +10,15 @@ public class Date implements Comparable<Date>{
   private int year;
   private int month;
   private int day;
+  public static final int MINYEARS = 1900; //directors are 3
+  public static final int THIRTYDAYMONTH = 30; //directors are 3
+  public static final int THIRTYONEDAYMONTH = 31; //directors are 3
+  public static final int TWENTYEIGHTDAYMONTH = 28; //directors are 3
+  public static final int TWENTYNINEDAYMONTH = 29; //directors are 3
+  public static final int LEAPYEARCHECKONEHUNDRED = 100; //directors are 3
+  public static final int LEAPYEARCHECKFOURHUNDRED = 400; //directors are 3
+  public static final int LEAPYEARCHECKFOUR = 4; //directors are 3
+
 
   /**
    * Creates a new date using a string with format mm/dd/yyyy
@@ -18,28 +27,16 @@ public class Date implements Comparable<Date>{
   public Date(String date) {
     String[] data = date.split("/"); //split the entered date by '/'
     try {
-      year = Integer.parseInt(data[2]); //year is first argument
+      year = Integer.parseInt(data[2]); //year is the last argument
+      //month is the first argument
       month = Integer.parseInt(data[0])-1; //subtract 1 so it works with the calendar class's constants (January is 0 in Calendar)
-      day = Integer.parseInt(data[1]); //day is last argument
+      day = Integer.parseInt(data[1]); //day is the second argument
     }catch(NumberFormatException | IndexOutOfBoundsException nfe){ //error in parsing date
-      year=-1;
-      month=-1;
-      day=-1;
+      year=-1; //default values for incorrect
+      month=-1; //default values for incorrect
+      day=-1; //default values for incorrect
     }
-
   } //taking mm/dd/yyyy and create a Date object
-
-  /**
-   * Creates a Date with today's date
-   */
-  public Date() {
-   Calendar c = Calendar.getInstance();
-
-   year = c.get(Calendar.YEAR);
-   month = c.get(Calendar.MONTH);
-   day = c.get(Calendar.DAY_OF_MONTH);
-  } //create an object with today’s date (see Calendar class)
-
 
   /**
    * Gets the year
@@ -76,7 +73,7 @@ public class Date implements Comparable<Date>{
     Calendar today = Calendar.getInstance();
     Calendar given = Calendar.getInstance();
     given.set(year,month,day);
-    if(given.after(today) || year < 1900){
+    if(given.after(today) || year < MINYEARS){
       return false; //date provided is after todays date or is before year 1900
     }
 
@@ -88,26 +85,26 @@ public class Date implements Comparable<Date>{
       case Calendar.AUGUST:
       case Calendar.OCTOBER:
       case Calendar.DECEMBER:
-        return day <= 31 && day > 0;
+        return day <= THIRTYONEDAYMONTH && day > 0;
       case Calendar.APRIL:
       case Calendar.JUNE:
       case Calendar.SEPTEMBER:
       case Calendar.NOVEMBER:
-        return day <= 30 && day > 0;
+        return day <= THIRTYDAYMONTH && day > 0;
 
       case Calendar.FEBRUARY: //special case for feb
-        if(year%4 == 0){
-          if(year%100 == 0){
-            if(year%400 == 0){
-              return day<=29;//leap year
+        if(year%LEAPYEARCHECKFOUR == 0){
+          if(year%LEAPYEARCHECKONEHUNDRED == 0){
+            if(year%LEAPYEARCHECKFOURHUNDRED == 0){
+              return day<=TWENTYNINEDAYMONTH;//leap year
             }else{
-              return day<=28; //not a leap year
+              return day<=TWENTYEIGHTDAYMONTH; //not a leap year
             }
           }else{
-            return day<=29;//leap year
+            return day<=TWENTYNINEDAYMONTH;//leap year
           }
         }else{
-          return day<=28; //not a leap year
+          return day<=TWENTYEIGHTDAYMONTH; //not a leap year
         }
       default:
         return false; //month is not 1-12
@@ -121,6 +118,7 @@ public class Date implements Comparable<Date>{
   @Override
   public String toString() {
     return (month+1)+"/"+day+"/"+year; //formatting for the date
+    //month+1 because of index to real life notation offset
   }
 
   /*
