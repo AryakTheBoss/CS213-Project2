@@ -7,8 +7,6 @@ public class PayrollProcessing {
 
 
     public static final int MINREQUIREMENTSONE = 1;
-    public static final int MINREQUIREMENTSSECOND = 2;
-    public static final int MINREQUIREMENTSTHREE = 3;
     public static final int MINREQUIREMENTSFOUR = 4;
     public static final int MINREQUIREMENTSFIVE = 5;
     public static final int MINREQUIREMENTSSIX = 6;
@@ -55,13 +53,17 @@ public class PayrollProcessing {
             switch(tokens[0]){
 
                 case "AP":
-                    if(tokens.length != MINREQUIREMENTSFIVE){
+                    if(tokens.length != MINREQUIREMENTSFIVE){ //check for 5 args
                         System.out.println("Insufficient Arguments.");
                         break;
                     }
-                    if(Float.parseFloat(tokens[4])<0){
-                        System.out.println("Pay rate can't be negative.");
-                        break;
+                    try {
+                        if (Float.parseFloat(tokens[4]) < 0) {
+                            System.out.println("Pay rate can't be negative.");
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("Salary is Not a Number");
                     }
                     Date hired = new Date(tokens[3]); //the date should be the 3rd argument
                     if (!hired.isValid()) {
@@ -100,9 +102,13 @@ public class PayrollProcessing {
                         System.out.println("Invalid Date!");
                         break;
                     }
-                    if(Float.parseFloat(tokens[4])<0){
-                        System.out.println("Salary cannot be negative.");
-                        break;
+                    try {
+                        if (Float.parseFloat(tokens[4]) < 0) {
+                            System.out.println("Salary cannot be negative.");
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("Salary is not a number");
                     }
                     if(checkDepartment(tokens[2])){
                         try {
@@ -133,9 +139,13 @@ public class PayrollProcessing {
                         System.out.println("Invalid Date!");
                         break;
                     }
-                    if(Integer.parseInt(tokens[4])<0){
-                        System.out.println("Salary cannot be negative.");
-                        break;
+                    try {
+                        if (Integer.parseInt(tokens[4]) < 0) {
+                            System.out.println("Salary cannot be negative.");
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        System.out.println("Salary is not a number");
                     }
                     if(checkDepartment(tokens[2])){
                         try {

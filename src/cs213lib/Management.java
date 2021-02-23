@@ -12,15 +12,18 @@ public class Management extends Fulltime{
     private static final float DEP_BONUS = 9500; //department bonus is 9500
     private static final float DIR_BONUS = 12000; //director bonus is 12000
 
-    /*
-    constructor for management
-    */
+    /**
+     * constructor for management
+     * @param profile the profile
+     * @param annualSalary the salary
+     * @param positionType position type
+     */
     public Management(Profile profile,float annualSalary, int positionType) {
         super(profile,annualSalary);
         this.positionType = positionType;
         super.setManager();
     }
-    /*
+    /**
     calculate payment for all management type employees using their specific constants
     dep, dir, and basic manager, all have different bonus amounts
 
@@ -43,9 +46,11 @@ public class Management extends Fulltime{
                 super.setPayment(-1); //Error (should never happen)
         }
     }
-    /*
-    Convert the manager to a string of data
-    */
+
+    /**
+     * Convert the manager to a string of data
+     * @return the string
+     */
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat(Employee.DOLLAR_FORMAT);
@@ -67,9 +72,12 @@ public class Management extends Fulltime{
 
 
     }
-    /*
-    check if this manager equals the entered one
-    */
+
+    /**
+     * check if this manager equals the entered one
+     * @param o the object to compare
+     * @return true if equals false otherwise
+     */
     @Override
     public boolean equals(Object o) {
 

@@ -5,18 +5,20 @@ public class Company {
     private Employee[] employees; //array to store employees in Company
     private int numEmployee; //track the count of employees
 
-    /*
-    Constructor for Company
-    */
+    /**
+     * Constructor for Company
+     */
     public Company(){
         employees = new Employee[4]; //initialize with 4 books
         numEmployee = 0; //but still empty
     }
 
 
-    /*
-    finds the index of the employee being searched for within employees array
-    */
+    /**
+     *  finds the index of the employee being searched for within employees array
+     * @param employee the employee to find
+     * @return the index if found -1 if not
+     */
     private int find(Employee employee){
         if(isEmpty()){ //if nothing inside, return false
             return -1;
@@ -37,13 +39,15 @@ public class Company {
         Employee[] newEmployeeArray = new Employee[employees.length+4]; //increase array length by 4, to copy over
         //run through employee array
         //copy over every element
-        System.arraycopy(employees, 0, newBookArray, 0, employees.length);
-        employees = newEmployeeArray; //set books to new bigger array
+        System.arraycopy(employees, 0, newEmployeeArray, 0, employees.length);
+        employees = newEmployeeArray; //set employees to new bigger array
     }
 
-    /*
-    add a new employee to the employee array
-    */
+    /**
+     * add a new employee to the employee array
+     * @param employee the employee to add
+     * @return true if employee was added false if employee already exists
+     */
     public boolean add(Employee employee){
 
         int found = find(employee); //store index of the employee
@@ -72,9 +76,11 @@ public class Company {
         return false;
     }
 
-    /*
-    remove the employee from the employees array
-    */
+    /**
+     * remove the employee from the employees array
+     * @param employee the employee to remove
+     * @return true if employee was removed false if not found
+     */
     public boolean remove(Employee employee){
         int found = find(employee); //find index, store
         //check if now in an index past the employee
@@ -96,14 +102,16 @@ public class Company {
         }
     }
 
-    /*
-    setter method for employee hours
-    */
+    /**
+     * setter method for employee hours
+     * @param employee the employee
+     * @return true if sethours false if employee was not found or is not parttime
+     */
     public boolean setHours(Employee employee){
         if(employee.isPartTime()){//if they are part time
 
             int i = find(employee); //find index
-            if(i != -1){ //if not false
+            if(i != -1){ //if found
                 if(employees[i].isPartTime()){ //if part time
                     Parttime p = (Parttime)employees[i];
                     Parttime p2 = (Parttime)employee;
@@ -128,9 +136,9 @@ public class Company {
         return true; //else has books
     }
 
-    /*
-    run calculatePayment for each employee
-    */
+    /**
+     * run calculatePayment for each employee
+     */
     public void processPayments(){
         if(isEmpty()){ //if no employees
             System.out.println("Employee Database is empty.");
@@ -143,7 +151,7 @@ public class Company {
         System.out.println("Calculation of employee payments is done.");
     }
 
-    /*
+    /**
     print all employees' earning statements out
     */
     public void print(){
@@ -161,7 +169,7 @@ public class Company {
 
     }
 
-    /*
+    /**
     print all employees in order of the departments: cs, ee, iti
     */
     public void printByDepartment(){
@@ -194,7 +202,7 @@ public class Company {
 
 
 
-    /*
+    /**
     print employees in order of their date hired
     */
     public void printByDate(){ //print by date hired

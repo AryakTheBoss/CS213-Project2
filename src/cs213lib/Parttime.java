@@ -9,12 +9,21 @@ public class Parttime extends Employee{
     private static final float OVERTIME_HOURS = 80.0f;
     private static final float BONUS_RATE = 1.5f;
 
-
+    /**
+     * Constructs a parttime employee
+     * @param profile the employee profile
+     * @param hourlyRate the hourly rate
+     * @param hoursWorked hours worked
+     */
     public Parttime(Profile profile, float hourlyRate, float hoursWorked) {
         super(profile,'P');
         this.hourlyRate = hourlyRate;
         this.hoursWorked = hoursWorked;
     }
+
+    /**
+     * calculate payment for a parttime employee
+     */
     @Override
     public void calculatePayment(){
         if(hoursWorked <= OVERTIME_HOURS) {
@@ -25,15 +34,27 @@ public class Parttime extends Employee{
         }
     }
 
+    /**
+     * sets hours worked for this employee
+     * @param hours
+     */
     public void setHoursWorked(float hours){
         hoursWorked = hours;
     }
 
+    /**
+     * gets hours worked
+     * @return
+     */
     public float getHoursWorked(){
         return hoursWorked;
     }
 
 
+    /**
+     * returns a string version of a parttime employee
+     * @return
+     */
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat(Employee.DOLLAR_FORMAT);

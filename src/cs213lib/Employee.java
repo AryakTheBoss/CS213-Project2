@@ -14,47 +14,60 @@ public class Employee {
       this.profile = profile;
       this.employeeType = employeeType;
     }
-    /*
-    setter for Manager employeetype
-    */
+
+    /**
+     *  setter for Manager employeetype
+     */
     public void setManager(){
         employeeType = 'M';
     }
-    /*
-    check if parttime employeetype
-    */
+
+    /**
+     *  check if parttime employeetype
+     * @return true if is part time
+     */
     public boolean isPartTime() {
         return employeeType == 'P';
     }
-    /*
-    check for fulltime employeetype
-    */
+
+    /**
+     * check for fulltime employeetype
+     * @return true if is full time
+     */
     public boolean isFullTime() {
         return employeeType == 'F';
     }
-    /*
-    check if Manager employeetype
-    */
+
+    /**
+     * check if Manager employeetype
+     * @return true if manager
+     */
     public boolean isManager() {
 
         return employeeType == 'M';
     }
-    /*
-    check if employeetype unknown
-    */
+
+    /**
+     *  check if employeetype unknown
+     * @return true if unknown
+     */
     public boolean isUnknown(){
         return employeeType == 'U';
     }
 
-    /*
-    getter for employeeprofile
-    */
+    /**
+     * getter for employeeprofile
+     * @return the profile
+     */
     public Profile getProfile(){
         return profile;
     }
-    /*
-    if this employee is the employee in argument, return true
-    */
+
+    /**
+     * if this employee is the employee in argument, return true
+     * @param o object to compare to
+     * @return true if equal false otherwise
+     */
     @Override
     public boolean equals(Object o) {
        if(o instanceof Employee){ //if o is an employee
@@ -64,24 +77,35 @@ public class Employee {
        }
        return false; //else false
     }
-    /*
-    setter for payment
-    */
+
+    /**
+     * setter for payment
+     * @param payment the payment amount
+     */
     public void setPayment(float payment){
         this.payment = payment;
     }
-    /*
-    getter for payment
-    */
+
+    /**
+     * getter for payment
+     * @return the payment
+     */
     public float getPayment(){
         return this.payment;
     }
-    //convert employee information to string
+
+    /**
+     * convert employee to a string
+     * @return the string
+     */
     @Override
     public String toString() {
       return profile.toString();
     }
-    //calculatePayment
+
+    /**
+     * does nothing
+     */
     public void calculatePayment(){ }//leave blank
 
 
