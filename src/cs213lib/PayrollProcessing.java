@@ -19,6 +19,10 @@ public class PayrollProcessing {
             for(int i =0;i<tokens.length;i++){
                 tokens[i] = st.nextToken();
             }
+            if(command.isEmpty()){
+                System.out.println("No Command Entered.");
+                continue;
+            }
             switch (tokens[0]) { //Check for any of the print commands
                 case "PA":
                     cc.print();
@@ -36,10 +40,7 @@ public class PayrollProcessing {
             if(command == null){ //If a print command was entered, do not continue in the loop
                 continue;
             }
-            if(command.isEmpty()){
-                System.out.println("No Command Entered.");
-                continue;
-            }
+
             switch(tokens[0]){
 
                 case "AP":
@@ -156,6 +157,10 @@ public class PayrollProcessing {
                             break;
                         }
                         Date date = new Date(tokens[3]);
+                        if (!date.isValid()) {
+                            System.out.println("Invalid Date!");
+                            break;
+                        }
                         Profile profile = new Profile(tokens[1],tokens[2],date);
                         Employee toRemove = new Employee(profile,'U'); //only need to provide the correct profile and unknown employee type
                         if (!cc.remove(toRemove)) { //does the removing if it exists if not it prints the error
