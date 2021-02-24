@@ -2,6 +2,9 @@ package cs213lib;
 
 import java.text.DecimalFormat;
 
+/**
+ * Full time Employee
+ */
 public class Fulltime extends Employee{
 
     private float annualSalary; //salary for fulltime employees is annual

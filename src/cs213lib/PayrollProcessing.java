@@ -2,6 +2,9 @@ package cs213lib;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * Main I/O class for Payroll Processing
+ */
 public class PayrollProcessing {
 
 

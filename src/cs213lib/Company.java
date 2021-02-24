@@ -1,5 +1,8 @@
 package cs213lib;
 
+/**
+ * wrapper class that represents a company
+ */
 public class Company {
 
     private Employee[] employees; //array to store employees in Company

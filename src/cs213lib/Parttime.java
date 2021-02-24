@@ -2,6 +2,9 @@ package cs213lib;
 
 import java.text.DecimalFormat;
 
+/**
+ * Part time employee
+ */
 public class Parttime extends Employee{
 
     private float hourlyRate;

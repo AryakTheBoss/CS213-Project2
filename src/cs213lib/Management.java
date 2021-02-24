@@ -2,6 +2,9 @@ package cs213lib;
 
 import java.text.DecimalFormat;
 
+/**
+ * Manager employee
+ */
 public class Management extends Fulltime{
 
     private int positionType; //track position type

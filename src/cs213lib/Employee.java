@@ -1,6 +1,8 @@
 package cs213lib;
 
-
+/**
+ * General Employee
+ */
 public class Employee {
 
     private Profile profile; //profile for employee
