@@ -1,7 +1,9 @@
 package cs213lib;
 
+
 /**
- * Main class
+ * main class
+ *  @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class RunProject2 {
 

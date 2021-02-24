@@ -3,6 +3,7 @@ package cs213lib;
 
 /**
  * Represents an employee profile
+ *  @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class Profile {
 

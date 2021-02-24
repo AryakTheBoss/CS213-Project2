@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * Part time employee
+ *  @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class Parttime extends Employee{
 

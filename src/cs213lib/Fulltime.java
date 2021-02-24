@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * Full time Employee
+ * @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class Fulltime extends Employee{
 

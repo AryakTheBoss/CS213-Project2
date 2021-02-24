@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * Manager employee
+ *  @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class Management extends Fulltime{
 

@@ -2,6 +2,7 @@ package cs213lib;
 
 /**
  * wrapper class that represents a company
+ *  @author Mayank Singamreddy mss390, Aryak Pande amp487
  */
 public class Company {
 
