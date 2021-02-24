@@ -39,7 +39,7 @@ public class Parttime extends Employee{
 
     /**
      * sets hours worked for this employee
-     * @param hours
+     * @param hours the hours
      */
     public void setHoursWorked(float hours){
         hoursWorked = hours;
@@ -47,7 +47,7 @@ public class Parttime extends Employee{
 
     /**
      * gets hours worked
-     * @return
+     * @return the hours worked for this employee
      */
     public float getHoursWorked(){
         return hoursWorked;
@@ -56,7 +56,7 @@ public class Parttime extends Employee{
 
     /**
      * returns a string version of a parttime employee
-     * @return
+     * @return the string of an employee
      */
     @Override
     public String toString() {
