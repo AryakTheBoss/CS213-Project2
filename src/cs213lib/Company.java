@@ -158,30 +158,34 @@ public class Company {
     /**
     print all employees' earning statements out
     */
-    public void print(){
+    public String print(){
+        String result = "";
         if(isEmpty()){ //if no employees
-            System.out.println("Employee Database is empty.");
-            return;
+            result+="Employee Database is empty.";
+            return result;
         }
 
+
         //print the earning statements
-        System.out.println("--Printing earning statements for all Employees--");
+        result+="--Printing earning statements for all Employees--\n";
         for(Employee e : employees){ //for each employee
             if(e != null) //if the employee exists
-              System.out.println(e);
+              result+=e+"\n";
         }
+        return result;
 
     }
 
     /**
     print all employees in order of the departments: cs, ee, iti
     */
-    public void printByDepartment(){
+    public String printByDepartment(){
+        String result="";
         if(isEmpty()){ //if no employees
-            System.out.println("Employee database is empty.");
-            return;
+           result+="Employee database is empty.";
+            return result;
         }
-        System.out.println("--Printing earning statements by department--");
+        result+="--Printing earning statements by department--\n";
 
         //begin bubble sort
         for (int outside = 0; outside < numEmployee-1; outside++) //outer loop
@@ -199,9 +203,10 @@ public class Company {
             }
         for (Employee employee : employees) { //for each employee
             if (employee != null) //if it exists
-                System.out.println(employee); //print their name
+                result+=employee+"\n"; //print their name
         }
-        System.out.println("**End of List.");
+        result+="**End of List.";
+        return result;
     }
 
 
@@ -209,12 +214,13 @@ public class Company {
     /**
     print employees in order of their date hired
     */
-    public void printByDate(){ //print by date hired
+    public String printByDate(){ //print by date hired
+        String result="";
         if(isEmpty()){ //if the array has no employees in it
-            System.out.println("Employee database is empty.");
-            return;
+            result+="Employee database is empty.";
+            return result;
         }
-        System.out.println("--Printing earning statements by date hired--");
+        result+="--Printing earning statements by date hired--\n";
 
         for (int outside = 0; outside < numEmployee-1; outside++) //for each employees
             for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each employees
@@ -232,9 +238,12 @@ public class Company {
             }
         for (Employee employee : employees) { //for each employee
             if (employee != null) //if it exists
-                System.out.println(employee); //print their name
+               result+=employee+"\n"; //print their name
         }
-        System.out.println("**End of List.");
+        result+=("**End of List.");
+
+        return result;
+
     }
 
 }
