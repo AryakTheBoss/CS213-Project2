@@ -54,7 +54,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Save..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Save..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Choose where to save it:" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
