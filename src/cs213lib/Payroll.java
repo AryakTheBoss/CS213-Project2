@@ -21,7 +21,7 @@ public class Payroll extends Application {
         try {
             root = FXMLLoader.load(getClass().getResource("View.fxml"));
             primaryStage.setTitle("Payroll Processing");
-            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.setScene(new Scene(root, 590, 475));
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
