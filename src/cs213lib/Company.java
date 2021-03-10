@@ -161,13 +161,13 @@ public class Company {
     public String print(){
         String result = "";
         if(isEmpty()){ //if no employees
-            result+="Employee Database is empty.";
+            result+="\nEmployee Database is empty.";
             return result;
         }
 
 
         //print the earning statements
-        result+="--Printing earning statements for all Employees--\n";
+        result+="\n--Printing earning statements for all Employees--\n";
         for(Employee e : employees){ //for each employee
             if(e != null) //if the employee exists
               result+=e+"\n";
@@ -182,10 +182,10 @@ public class Company {
     public String printByDepartment(){
         String result="";
         if(isEmpty()){ //if no employees
-           result+="Employee database is empty.";
+           result+="\nEmployee database is empty.";
             return result;
         }
-        result+="--Printing earning statements by department--\n";
+        result+="\n--Printing earning statements by department--\n";
 
         //begin bubble sort
         for (int outside = 0; outside < numEmployee-1; outside++) //outer loop
@@ -217,10 +217,10 @@ public class Company {
     public String printByDate(){ //print by date hired
         String result="";
         if(isEmpty()){ //if the array has no employees in it
-            result+="Employee database is empty.";
+            result+="\nEmployee database is empty.";
             return result;
         }
-        result+="--Printing earning statements by date hired--\n";
+        result+="\n--Printing earning statements by date hired--\n";
 
         for (int outside = 0; outside < numEmployee-1; outside++) //for each employees
             for (int inside = 0; inside < numEmployee-outside-1; inside++) { //for each employees

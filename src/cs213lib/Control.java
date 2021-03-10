@@ -12,9 +12,11 @@ import java.time.format.DateTimeFormatter;
 public class Control {
 
     private static Company com;
-    private static boolean msg = false;
 
-    /** ADD COMPONENTS **/
+
+    @FXML private TextArea console;
+
+    /** ADD TAB COMPONENTS **/
 
     @FXML private TextField fname;
     @FXML private TextField lname;
@@ -27,10 +29,27 @@ public class Control {
     @FXML private ChoiceBox<String> mantype;
     @FXML private Label messageBox;
 
-    /** REMOVE COMPONENTS **/
+    /** REMOVE TAB COMPONENTS **/
 
     public Control(){
         com = new Company();
+    }
+
+    @FXML
+    private void showAll(){
+        console.appendText(com.print());
+    }
+    @FXML
+    private void showByDept(){
+        console.appendText(com.printByDepartment());
+    }
+    @FXML
+    private void showByDate(){
+        console.appendText(com.printByDate());
+    }
+    @FXML
+    private void clearOut(){
+        console.setText("");
     }
 
     private void initAddForm(){
@@ -90,7 +109,7 @@ public class Control {
 
     @FXML
     public void initialize(){ //initialize ALL GUI elements
-
+        console.setEditable(false); //make the text area read only
         initAddForm(); //initialize the add tab
 
 
@@ -124,12 +143,14 @@ public class Control {
        // messageBox.setVisible(false);
         if(!addFormCompleted()){
             messageBox.setText("One or more required Fields are EMPTY.");
+            console.appendText("\nOne or more required Fields are EMPTY.");
             messageBox.setVisible(true);
             return;
         }
        Date d = new Date(hired.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
         if(!d.isValid()){
             messageBox.setText("Date is invalid.");
+            console.appendText("\nDate is invalid.");
             messageBox.setVisible(true);
         }
 
@@ -139,15 +160,18 @@ public class Control {
                 float annsal = Float.parseFloat(annualSalary.getText());
                 if(annsal < 0){
                     messageBox.setText("Annual Salary can't be negative.");
+                    console.appendText("\nAnnual Salary can't be negative.");
                     messageBox.setVisible(true);
                     return;
                 }
                 com.add(new Fulltime(p, annsal));
                 messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
+                console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
                 clear();
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
+                console.appendText("\nAnnual Salary value is invalid.");
                 messageBox.setVisible(true);
             }
         }else if(emptype.getSelectionModel().getSelectedIndex() == 1){
@@ -157,20 +181,24 @@ public class Control {
                 float rate = Float.parseFloat(hourlyRate.getText());
                 if(rate<0){
                     messageBox.setText("Negative hourly rate entered.");
+                    console.appendText("\nNegative hourly rate entered.");
                     messageBox.setVisible(true);
                     return;
                 }
                 if(hours<0||hours>100){
                     messageBox.setText("Invalid number of hours.");
+                    console.appendText("\nInvalid number of hours.");
                     messageBox.setVisible(true);
                     return;
                 }
                 com.add(new Parttime(p, rate, hours));
                 messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
+                console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
                 clear();
             }catch(NumberFormatException e){
                 messageBox.setText("Invalid rate or hours entered.");
+                console.appendText("\nInvalid rate or hours entered.");
                 messageBox.setVisible(true);
             }
         }else if(emptype.getSelectionModel().getSelectedIndex() == 2){
@@ -179,24 +207,29 @@ public class Control {
                 float annsal = Float.parseFloat(annualSalary.getText());
                 if(annsal < 0){
                     messageBox.setText("Annual Salary can't be negative.");
+                    console.appendText("\nAnnual Salary can't be negative.");
                     messageBox.setVisible(true);
                     return;
                 }
                 if(mantype.getSelectionModel().isEmpty()){
                     messageBox.setText("Manager type is not selected.");
+                    console.appendText("\nManager type is not selected.");
                     messageBox.setVisible(true);
                     return;
                 }
                 com.add(new Management(p, annsal, mantype.getSelectionModel().getSelectedIndex() + 1));
                 messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
+                console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
                 clear();
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
+                console.appendText("\nAnnual Salary value is invalid.");
                 messageBox.setVisible(true);
             }
         }else{
             messageBox.setText("Unknown Error has Occured.");
+            console.setText("\nUnknown Error has Occured.");
             messageBox.setVisible(true);
         }
 
@@ -208,13 +241,15 @@ public class Control {
     }
 
     @FXML
-    public void calculate(){ //called by the process button
+    public void calculate(){ //called by the process payment button
 
-        msg = !msg;
+
         if(com.processPayments()){
-            messageBox.setText(msg ? "Calculation of Employee Payments is DONE.":"Calculation of Employee Payments is Done.");
+            messageBox.setText("Calculation of Employee Payments is Done.");
+            console.appendText("\nCalculation of Employee Payments is Done.");
         }else{
-            messageBox.setText(msg ? "Employee Database is Empty.":"Employee Database is EMPTY.");
+            messageBox.setText("Employee Database is EMPTY.");
+            console.appendText("\nEmployee Database is EMPTY.");
         }
 
         messageBox.setVisible(true);
