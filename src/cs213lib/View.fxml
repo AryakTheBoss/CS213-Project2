@@ -8,21 +8,56 @@
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-            <Tab text="Main">
+            <Tab text="Manage Employees">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutX="1.0" prefHeight="371.0" prefWidth="600.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <TabPane layoutY="1.0" prefHeight="295.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Add">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="204.0" prefWidth="221.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.29797979797979796" layoutX="-1.0" layoutY="1.0" prefHeight="261.0" prefWidth="600.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="224.0">
+                                                   <children>
+                                                      <TextField layoutX="13.0" layoutY="14.0" promptText="First Name*" />
+                                                      <TextField layoutX="13.0" layoutY="46.0" promptText="Last Name*" />
+                                                      <Label layoutX="13.0" layoutY="77.0" prefHeight="0.0" prefWidth="147.0" text="Department*" />
+                                                      <ChoiceBox layoutX="13.0" layoutY="100.0" prefHeight="21.0" prefWidth="150.0" />
+                                                      <DatePicker layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" promptText="Date Hired*" />
+                                                      <Label layoutX="13.0" layoutY="176.0" text="Employee Type*" />
+                                                      <ChoiceBox layoutX="13.0" layoutY="200.0" prefWidth="150.0" />
+                                                   </children></AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="176.0">
+                                                   <children>
+                                                      <Button layoutX="315.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Submit" />
+                                                      <TextField layoutX="22.0" layoutY="21.0" promptText="Annual Salary" />
+                                                      <TextField layoutX="22.0" layoutY="57.0" promptText="Hourly Rate" />
+                                                      <TextField layoutX="22.0" layoutY="94.0" promptText="Hours Worked" />
+                                                      <Label layoutX="22.0" layoutY="130.0" prefHeight="17.0" prefWidth="143.0" text="Manager Type*" />
+                                                      <ChoiceBox layoutX="21.0" layoutY="154.0" prefWidth="150.0" />
+                                                   </children></AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Remove">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                              <Tab text="Set Hours">
+                                  <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                        <Button layoutX="469.0" layoutY="309.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="111.0" text="Quit" />
+                        <Button layoutX="14.0" layoutY="315.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" text="Process Payments" />
                      </children></AnchorPane>
                 </content>
             </Tab>
