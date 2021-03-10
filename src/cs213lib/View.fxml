@@ -69,6 +69,8 @@
                                                 <TextField fx:id="hoursModify" promptText="Hours Worked" />
                                                 <Separator orientation="VERTICAL" prefHeight="52.0" prefWidth="23.0" />
                                                 <Button fx:id="sethoursbutt" mnemonicParsing="false" onMouseClicked="#setHours" prefHeight="31.0" prefWidth="90.0" text="Set Hours" />
+                                                <Separator orientation="VERTICAL" prefHeight="96.0" prefWidth="49.0" />
+                                                <Button fx:id="clearButt" mnemonicParsing="false" onMouseClicked="#clearRemoveForm" prefHeight="25.0" prefWidth="101.0" text="Clear Fields" />
                                              </children>
                                           </VBox>
                                        </children></AnchorPane>

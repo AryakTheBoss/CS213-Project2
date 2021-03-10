@@ -27,7 +27,7 @@ public class Company {
      * @return the index if found -1 if not
      */
     private int find(Employee employee){
-        if(isEmpty()){ //if nothing inside, return false
+        if(isEmpty() || employee == null){ //if nothing inside, return false
             return -1;
         }
         for(int i = 0; i< employees.length; i++){ //run through list
@@ -115,6 +115,9 @@ public class Company {
      * @return true if sethours false if employee was not found or is not parttime
      */
     public boolean setHours(Employee employee){
+        if(employee == null){
+            return false;
+        }
         if(employee.isPartTime()){//if they are part time
 
             int i = find(employee); //find index

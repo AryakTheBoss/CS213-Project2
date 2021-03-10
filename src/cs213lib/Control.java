@@ -44,6 +44,7 @@ public class Control {
     @FXML private TextField lnameR;
     @FXML private TextField hoursModify;
     @FXML private DatePicker hiredR;
+    private ToggleGroup departmentGroup = new ToggleGroup();
     @FXML private RadioButton csRadio;
     @FXML private RadioButton eceRadio;
     @FXML private RadioButton itRadio;
@@ -128,13 +129,22 @@ public class Control {
     }
 
     public void initRemoveForm(){
+        hiredR.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) > 0 );
+            }
+        });
+
+        csRadio.setToggleGroup(departmentGroup);
+        eceRadio.setToggleGroup(departmentGroup);
+        itRadio.setToggleGroup(departmentGroup);
+        csRadio.setSelected(true);
 
     }
 
-    @FXML
-    public void setHours(){
 
-    }
 
 
     @FXML
@@ -168,6 +178,15 @@ public class Control {
         hoursWorked.setText("");
         mantype.getSelectionModel().clearSelection();
     }
+    @FXML
+    private void clearRemoveForm(){
+        fnameR.setText("");
+        lnameR.setText("");
+       csRadio.setSelected(true);
+        hiredR.setValue(null);
+        hoursModify.setText("");
+
+    }
 
     @FXML
     public void processAddForm(){ //called by the submit button on the add tab
@@ -183,6 +202,7 @@ public class Control {
             messageBox.setText("Date is invalid.");
             console.appendText("\nDate is invalid.");
             messageBox.setVisible(true);
+            return;
         }
 
         if(emptype.getSelectionModel().getSelectedIndex() == 0){
@@ -260,15 +280,105 @@ public class Control {
             }
         }else{
             messageBox.setText("Unknown Error has Occured.");
-            console.setText("\nUnknown Error has Occured.");
+            console.appendText("\nUnknown Error has Occured.");
             messageBox.setVisible(true);
         }
 
     }
 
+    public boolean modifyCompleted(){
+        boolean c1 = !fnameR.getText().isEmpty();
+        boolean c2 = !lnameR.getText().isEmpty();
+        boolean c3 = hiredR.getValue() != null;
+        boolean c4 = csRadio.isSelected() || eceRadio.isSelected() || itRadio.isSelected();
+
+        return c1 && c2 && c3 && c4;
+    }
+    @FXML
+    public void setHours(){
+        if(!modifyCompleted() || hoursModify.getText().isEmpty()){
+            messageBox.setText("One or more required fields are blank");
+            console.appendText("\nOne or more required fields are blank");
+            messageBox.setVisible(true);
+            return;
+        }
+        Date d = new Date(hiredR.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+        if(!d.isValid()){
+            messageBox.setText("Date is invalid.");
+            console.appendText("\nDate is invalid.");
+            messageBox.setVisible(true);
+            return;
+        }
+        Employee toModify = null;
+        try {
+            float hours = Float.parseFloat(hoursModify.getText());
+            if(hours<0||hours>100){
+                messageBox.setText("Invalid hours.");
+                console.appendText("\nInvalid hours.");
+                messageBox.setVisible(true);
+                return;
+            }
+            if (csRadio.isSelected()) {
+                toModify = new Parttime(new Profile(lnameR.getText() + "," + fnameR.getText(), "CS", d), 0, hours);
+            } else if (eceRadio.isSelected()) {
+                toModify = new Parttime(new Profile(lnameR.getText() + "," + fnameR.getText(), "ECE", d), 0, hours);
+            } else if (itRadio.isSelected()) {
+                toModify = new Parttime(new Profile(lnameR.getText() + "," + fnameR.getText(), "IT", d), 0, hours);
+            } else {
+                messageBox.setText("Department is not selected.");
+                console.appendText("\nDepartment is not selected.");
+                messageBox.setVisible(true);
+            }
+            if(com.setHours(toModify)){
+                messageBox.setText("Working hours set successfully.");
+                console.appendText("\nWorking hours set successfully.");
+            }else{
+                messageBox.setText("Employee not found or is not part-time.");
+                console.appendText("\nEmployee not found or is not part-time.");
+            }
+            messageBox.setVisible(true);
+        }catch(NumberFormatException e){
+            messageBox.setText("Hours is not a number");
+            console.appendText("\nHours is not a number");
+            messageBox.setVisible(true);
+        }
+    }
     @FXML
     public void removeEmployee(){
-
+        if(!modifyCompleted()){
+            messageBox.setText("One or more required fields are blank");
+            console.appendText("\nOne or more required fields are blank");
+            messageBox.setVisible(true);
+            return;
+        }
+        Date d = new Date(hiredR.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+        if(!d.isValid()){
+            messageBox.setText("Date is invalid.");
+            console.appendText("\nDate is invalid.");
+            messageBox.setVisible(true);
+            return;
+        }
+        Employee toRemove = null;
+        if(csRadio.isSelected()) {
+             toRemove = new Employee(new Profile(lnameR.getText() + "," + fnameR.getText(), "CS", d), 'U');
+        }else if(eceRadio.isSelected()){
+             toRemove = new Employee(new Profile(lnameR.getText() + "," + fnameR.getText(), "ECE", d), 'U');
+        }else if(itRadio.isSelected()){
+             toRemove = new Employee(new Profile(lnameR.getText() + "," + fnameR.getText(), "IT", d), 'U');
+        }else{
+            messageBox.setText("Department is not selected.");
+            console.appendText("\nDepartment is not selected.");
+            messageBox.setVisible(true);
+            return;
+        }
+        if(com.remove(toRemove)){
+            messageBox.setText("Employee removed successfully.");
+            console.appendText("\nEmployee removed successfully.");
+        }else{
+            messageBox.setText("Employee not found.");
+            console.appendText("\nEmployee not found.");
+        }
+        messageBox.setVisible(true);
     }
 
     @FXML
