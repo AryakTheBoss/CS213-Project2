@@ -1,5 +1,8 @@
 package cs213lib;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * wrapper class that represents a company
  *  @author Mayank Singamreddy mss390, Aryak Pande amp487
@@ -153,6 +156,26 @@ public class Company {
             emp.calculatePayment(); // calculatePayment()
         }
         return true;
+    }
+
+    public void export(File saveLocation) throws IOException {
+        if (!saveLocation.exists()) {
+
+                if(saveLocation.createNewFile()){
+                    //file created successfully, write the stuff
+                }
+
+        }else{
+            //file already exists
+        }
+    }
+
+    public void importDB(File database) throws IOException {
+        if(database.exists()){
+            //if the file exists, read from it and add contents to company by calling add()
+        }else{
+            //file does not exist
+        }
     }
 
     /**
