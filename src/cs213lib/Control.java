@@ -404,6 +404,10 @@ public class Control {
     @FXML
     public void importFile(){
         FileChooser dialog = new FileChooser();
+        dialog.setTitle("Import Employee Database");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
+        dialog.getExtensionFilters().add(extFilter); //apply a filter to only allow text files.
         File f = dialog.showOpenDialog(importTab.getScene().getWindow());
         try {
             if(com.importDB(f)){
@@ -424,6 +428,8 @@ public class Control {
     @FXML
     public void exportFile(){
         FileChooser dialog = new FileChooser();
+        dialog.setInitialFileName("database.txt");
+        dialog.setTitle("Export Employee Database");
         File f = dialog.showSaveDialog(exportTab.getScene().getWindow());
         try {
             if(com.export(f)){

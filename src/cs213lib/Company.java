@@ -161,6 +161,13 @@ public class Company {
         return true;
     }
 
+    /**
+     * exports the employee database with each employee on one line
+     *
+     * @param saveLocation the path to the save location
+     * @return true if saved successfully, false otherwise
+     * @throws IOException if file cannot be read or cannot be created
+     */
     public boolean export(File saveLocation) throws IOException { //returns true if database was successfully exported
         if(saveLocation == null){
             return false;
@@ -181,12 +188,19 @@ public class Company {
 
     }
 
+    /**
+     * imports a database.txt file into the array
+     * @param database the file to import
+     * @return true if imported successfully false otherwise
+     * @throws IOException if file cannot be read
+     */
     public boolean importDB(File database) throws IOException { //returns true if database was successfully imported
         if(database == null){
             return false;
         }
         if(database.exists()){
-            //if the file exists, read from it and add contents to company by calling add()
+            //the file exists, read from it and add contents to company by calling add()
+            //check for proper formatting in file, else return false
             return true;
         }else{
             //file does not exist
