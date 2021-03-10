@@ -22,22 +22,22 @@
                                             <items>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="224.0">
                                                    <children>
-                                                      <TextField layoutX="13.0" layoutY="14.0" promptText="First Name*" />
-                                                      <TextField layoutX="13.0" layoutY="46.0" promptText="Last Name*" />
+                                                      <TextField fx:id="fname" layoutX="13.0" layoutY="14.0" promptText="First Name*" />
+                                                      <TextField fx:id="lname" layoutX="13.0" layoutY="46.0" promptText="Last Name*" />
                                                       <Label layoutX="13.0" layoutY="77.0" prefHeight="0.0" prefWidth="147.0" text="Department*" />
-                                                      <ChoiceBox layoutX="13.0" layoutY="100.0" prefHeight="21.0" prefWidth="150.0" />
-                                                      <DatePicker layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" promptText="Date Hired*" />
+                                                      <ChoiceBox fx:id="dept" layoutX="13.0" layoutY="100.0" prefHeight="21.0" prefWidth="150.0" />
+                                                      <DatePicker fx:id="hired" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" promptText="Date Hired*" />
                                                       <Label layoutX="13.0" layoutY="176.0" text="Employee Type*" />
-                                                      <ChoiceBox layoutX="13.0" layoutY="200.0" prefWidth="150.0" />
+                                                      <ChoiceBox fx:id="emptype" layoutX="13.0" layoutY="200.0" prefWidth="150.0" />
                                                    </children></AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="176.0">
                                                    <children>
-                                                      <Button layoutX="315.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Submit" />
-                                                      <TextField layoutX="22.0" layoutY="21.0" promptText="Annual Salary" />
-                                                      <TextField layoutX="22.0" layoutY="57.0" promptText="Hourly Rate" />
-                                                      <TextField layoutX="22.0" layoutY="94.0" promptText="Hours Worked" />
-                                                      <Label layoutX="22.0" layoutY="130.0" prefHeight="17.0" prefWidth="143.0" text="Manager Type*" />
-                                                      <ChoiceBox layoutX="21.0" layoutY="154.0" prefWidth="150.0" />
+                                                      <Button fx:id="submit" layoutX="315.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#processAddForm" prefHeight="25.0" prefWidth="88.0" text="Submit" />
+                                                      <TextField fx:id="annualSalary" layoutX="22.0" layoutY="21.0" promptText="Annual Salary" />
+                                                      <TextField fx:id="hourlyRate" layoutX="22.0" layoutY="57.0" promptText="Hourly Rate" />
+                                                      <TextField fx:id="hoursWorked" layoutX="22.0" layoutY="94.0" promptText="Hours Worked" />
+                                                      <Label layoutX="22.0" layoutY="130.0" prefHeight="17.0" prefWidth="143.0" text="Manager Type" />
+                                                      <ChoiceBox fx:id="mantype" layoutX="21.0" layoutY="154.0" prefWidth="150.0" />
                                                    </children></AnchorPane>
                                             </items>
                                           </SplitPane>
@@ -56,8 +56,9 @@
                               </Tab>
                           </tabs>
                         </TabPane>
-                        <Button layoutX="469.0" layoutY="309.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="111.0" text="Quit" />
-                        <Button layoutX="14.0" layoutY="315.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" text="Process Payments" />
+                        <Button fx:id="quit" layoutX="469.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#quit" prefHeight="37.0" prefWidth="111.0" text="Quit" />
+                        <Button fx:id="calcPayment" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="35.0" prefWidth="112.0" text="Process Payments" />
+                        <Label fx:id="messageBox" layoutX="156.0" layoutY="303.0" prefHeight="54.0" prefWidth="279.0" text="NULL" visible="false" />
                      </children></AnchorPane>
                 </content>
             </Tab>

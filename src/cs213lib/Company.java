@@ -143,16 +143,16 @@ public class Company {
     /**
      * run calculatePayment for each employee
      */
-    public void processPayments(){
+    public boolean processPayments(){
         if(isEmpty()){ //if no employees
-            System.out.println("Employee Database is empty.");
-            return;
+
+            return false;
         }
         for(Employee emp : employees){ //for each employee
             if(emp != null) //if the employee exists
             emp.calculatePayment(); // calculatePayment()
         }
-        System.out.println("Calculation of employee payments is done.");
+        return true;
     }
 
     /**
