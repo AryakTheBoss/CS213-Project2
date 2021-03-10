@@ -5,7 +5,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,10 +17,15 @@ public class Control {
 
     private static Company com;
 
+    /* GLOBAL COMPONENTS */
 
     @FXML private TextArea console;
+    @FXML private AnchorPane importTab;
+    @FXML private AnchorPane exportTab;
+    @FXML private Label importStatus;
+    @FXML private Label exportStatus;
 
-    /** ADD TAB COMPONENTS **/
+    /* ADD TAB COMPONENTS */
 
     @FXML private TextField fname;
     @FXML private TextField lname;
@@ -29,7 +38,10 @@ public class Control {
     @FXML private ChoiceBox<String> mantype;
     @FXML private Label messageBox;
 
-    /** REMOVE TAB COMPONENTS **/
+    /* REMOVE TAB COMPONENTS */
+
+
+    /* SET HOURS TAB COMPONENTS */
 
     public Control(){
         com = new Company();
@@ -96,10 +108,10 @@ public class Control {
                         hoursWorked.setDisable(true);
                         mantype.setDisable(false);
                     }
-                }catch(ArrayIndexOutOfBoundsException e){
+                }catch(ArrayIndexOutOfBoundsException e){ //caught when the form has been reset
 
                     hourlyRate.setDisable(true);
-                    hoursWorked.setDisable(true); //disable these since no selection is default
+                    hoursWorked.setDisable(true);
                     annualSalary.setDisable(true);
                     mantype.setDisable(true);
                 }
@@ -107,11 +119,19 @@ public class Control {
         });
     }
 
+    public void initRemoveForm(){
+
+    }
+    public void initSetHoursForm(){
+
+    }
+
     @FXML
     public void initialize(){ //initialize ALL GUI elements
         console.setEditable(false); //make the text area read only
         initAddForm(); //initialize the add tab
-
+        initRemoveForm();
+        initSetHoursForm();
 
     }
 
@@ -126,7 +146,7 @@ public class Control {
 
     }
 
-    private void clear(){
+    private void clearAddForm(){
         fname.setText("");
         lname.setText("");
         dept.getSelectionModel().clearSelection();
@@ -168,7 +188,7 @@ public class Control {
                 messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
                 console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
-                clear();
+                clearAddForm();
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
                 console.appendText("\nAnnual Salary value is invalid.");
@@ -195,7 +215,7 @@ public class Control {
                 messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
                 console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
-                clear();
+                clearAddForm();
             }catch(NumberFormatException e){
                 messageBox.setText("Invalid rate or hours entered.");
                 console.appendText("\nInvalid rate or hours entered.");
@@ -221,7 +241,7 @@ public class Control {
                 messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
                 console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
-                clear();
+                clearAddForm();
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
                 console.appendText("\nAnnual Salary value is invalid.");
@@ -253,6 +273,46 @@ public class Control {
         }
 
         messageBox.setVisible(true);
+    }
+
+    @FXML
+    public void importFile(){
+        FileChooser dialog = new FileChooser();
+        File f = dialog.showOpenDialog(importTab.getScene().getWindow());
+        try {
+            if(com.importDB(f)){
+                console.appendText("\nEmployee Database was successfully imported.");
+                importStatus.setText("Employee Database was successfully imported.");
+            }else{
+                console.appendText("\nFile does not exist.");
+                importStatus.setText("File does not exist.");
+            }
+            importStatus.setVisible(true);
+        } catch (IOException e) {
+            console.appendText("\nFile does not exist or is not readable.");
+            importStatus.setText("File does not exist or is not readable.");
+            importStatus.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void exportFile(){
+        FileChooser dialog = new FileChooser();
+        File f = dialog.showSaveDialog(exportTab.getScene().getWindow());
+        try {
+            if(com.export(f)){
+                console.appendText("\nEmployee Database was successfully exported.");
+                exportStatus.setText("Employee Database was successfully exported.");
+            }else{
+                console.appendText("\nFile already exists, or a file could not be created.");
+                exportStatus.setText("File already exists, or a file could not be created.");
+            }
+            exportStatus.setVisible(true);
+        } catch (IOException e) {
+            console.appendText("\nFile already exists, or a file could not be created.");
+            exportStatus.setText("File already exists, or a file could not be created.");
+            exportStatus.setVisible(true);
+        }
     }
 
 

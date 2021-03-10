@@ -158,23 +158,36 @@ public class Company {
         return true;
     }
 
-    public void export(File saveLocation) throws IOException {
+    public boolean export(File saveLocation) throws IOException { //returns true if database was successfully exported
+        if(saveLocation == null){
+            return false;
+        }
         if (!saveLocation.exists()) {
 
                 if(saveLocation.createNewFile()){
                     //file created successfully, write the stuff
+                    return true;
+                }else{ //file could not be created
+                    return false;
                 }
 
         }else{
             //file already exists
+            return false;
         }
+
     }
 
-    public void importDB(File database) throws IOException {
+    public boolean importDB(File database) throws IOException { //returns true if database was successfully imported
+        if(database == null){
+            return false;
+        }
         if(database.exists()){
             //if the file exists, read from it and add contents to company by calling add()
+            return true;
         }else{
             //file does not exist
+            return false;
         }
     }
 

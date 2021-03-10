@@ -76,7 +76,7 @@
             </Tab>
           <Tab text="Import">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="importTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <GridPane alignment="CENTER" layoutX="138.0" layoutY="73.0" prefHeight="223.0" prefWidth="323.0">
                           <columnConstraints>
@@ -89,8 +89,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Open File" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button fx:id="openFile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#importFile" prefHeight="25.0" prefWidth="162.0" text="Open File" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label prefHeight="59.0" prefWidth="162.0" text="Choose your database file:" GridPane.rowIndex="1" />
+                              <Label fx:id="importStatus" prefHeight="59.0" prefWidth="162.0" text="NULL" visible="false" wrapText="true" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                         <Label layoutX="82.0" layoutY="27.0" prefHeight="65.0" prefWidth="435.0" text="Employee Database Importer">
@@ -103,7 +104,7 @@
           </Tab>
           <Tab text="Export">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="exportTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="85.0" layoutY="51.0" text="Employee Database Exporter">
                            <font>
@@ -120,8 +121,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Save..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button fx:id="saveButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exportFile" prefHeight="25.0" prefWidth="203.0" text="Save..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Choose where to save it:" GridPane.rowIndex="1" />
+                              <Label fx:id="exportStatus" prefHeight="61.0" prefWidth="160.0" text="NULL" visible="false" wrapText="true" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
