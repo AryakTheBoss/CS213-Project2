@@ -40,8 +40,16 @@ public class Control {
 
     /* REMOVE TAB COMPONENTS */
 
+    @FXML private TextField fnameR;
+    @FXML private TextField lnameR;
+    @FXML private TextField hoursModify;
+    @FXML private DatePicker hiredR;
+    @FXML private RadioButton csRadio;
+    @FXML private RadioButton eceRadio;
+    @FXML private RadioButton itRadio;
 
-    /* SET HOURS TAB COMPONENTS */
+
+
 
     public Control(){
         com = new Company();
@@ -122,16 +130,19 @@ public class Control {
     public void initRemoveForm(){
 
     }
-    public void initSetHoursForm(){
+
+    @FXML
+    public void setHours(){
 
     }
+
 
     @FXML
     public void initialize(){ //initialize ALL GUI elements
         console.setEditable(false); //make the text area read only
         initAddForm(); //initialize the add tab
         initRemoveForm();
-        initSetHoursForm();
+
 
     }
 
@@ -252,6 +263,11 @@ public class Control {
             console.setText("\nUnknown Error has Occured.");
             messageBox.setVisible(true);
         }
+
+    }
+
+    @FXML
+    public void removeEmployee(){
 
     }
 

@@ -6,13 +6,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs213lib.Control">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="331.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Manage Employees">
                 <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="600.0">
                      <children>
-                        <TabPane layoutY="1.0" prefHeight="295.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane layoutY="1.0" prefHeight="293.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab text="Add">
                               <content>
@@ -44,21 +44,40 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Remove">
+                            <Tab text="Modify">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox layoutX="10.0" layoutY="9.0" prefHeight="248.0" prefWidth="144.0">
+                                             <children>
+                                                <TextField fx:id="fnameR" prefHeight="10.0" prefWidth="579.0" promptText="First Name*" />
+                                                <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="122.0" />
+                                                <TextField fx:id="lnameR" promptText="Last Name*" />
+                                                <Label />
+                                                <DatePicker fx:id="hiredR" promptText="Date Hired*" />
+                                                <Label />
+                                                <Label text="Department" />
+                                                <RadioButton fx:id="csRadio" mnemonicParsing="false" text="CS" />
+                                                <RadioButton fx:id="eceRadio" mnemonicParsing="false" text="ECE" />
+                                                <RadioButton fx:id="itRadio" mnemonicParsing="false" text="IT" />
+                                                <Label />
+                                                <Button fx:id="rememp" mnemonicParsing="false" onMouseClicked="#removeEmployee" text="Remove Employee" />
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="182.0" layoutY="9.0" prefHeight="249.0" prefWidth="144.0">
+                                             <children>
+                                                <TextField fx:id="hoursModify" promptText="Hours Worked" />
+                                                <Separator orientation="VERTICAL" prefHeight="52.0" prefWidth="23.0" />
+                                                <Button fx:id="sethoursbutt" mnemonicParsing="false" onMouseClicked="#setHours" prefHeight="31.0" prefWidth="90.0" text="Set Hours" />
+                                             </children>
+                                          </VBox>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="Set Hours">
-                                  <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                  </content>
-                              </Tab>
                           </tabs>
                         </TabPane>
-                        <Button fx:id="quit" layoutX="469.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#quit" prefHeight="37.0" prefWidth="111.0" text="Quit" />
-                        <Button fx:id="calcPayment" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="35.0" prefWidth="112.0" text="Process Payments" />
-                        <Label fx:id="messageBox" layoutX="156.0" layoutY="303.0" prefHeight="54.0" prefWidth="279.0" text="NULL" visible="false" />
+                        
+
                      </children></AnchorPane>
                 </content>
             </Tab>
@@ -66,11 +85,18 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="console" layoutX="14.0" layoutY="14.0" prefHeight="285.0" prefWidth="570.0" wrapText="true" />
-                        <Button fx:id="show1" layoutX="19.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#showAll" prefHeight="25.0" prefWidth="129.0" text="Show All Employees" />
-                        <Button fx:id="show2" layoutX="176.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#showByDate" prefHeight="25.0" prefWidth="129.0" text="Show by Date Hired" />
-                        <Button fx:id="show3" layoutX="332.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#showByDept" text="Show by Department" />
-                        <Button fx:id="clearOutput" layoutX="485.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#clearOut" prefHeight="25.0" prefWidth="94.0" text="Clear Output" />
+                        <TextArea fx:id="console" layoutX="14.0" layoutY="14.0" prefHeight="226.0" prefWidth="570.0" wrapText="true" />
+                        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="247.0" prefHeight="48.0" prefWidth="570.0">
+                           <children>
+                              <Button mnemonicParsing="false" onMouseClicked="#showAll" text="Show All Employees" />
+                              <Separator prefHeight="2.0" prefWidth="25.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#showByDept" text="Show by Department" />
+                              <Separator prefHeight="0.0" prefWidth="26.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#showByDate" text="Show by Date Hired" />
+                              <Separator prefHeight="2.0" prefWidth="36.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#clearOut" text="Clear Output" />
+                           </children>
+                        </HBox>
                      </children></AnchorPane>
                 </content>
             </Tab>
@@ -131,5 +157,8 @@
           </Tab>
         </tabs>
       </TabPane>
+      <Button fx:id="propp" layoutX="25.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="30.0" prefWidth="118.0" text="Process Payments" />
+       <Label fx:id="messageBox" layoutX="156.0" layoutY="333.0" prefHeight="58.0" prefWidth="300.0" text="NULL" visible="false" />
+      <Button layoutX="484.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#quit" prefHeight="30.0" prefWidth="99.0" text="Quit" />
    </children>
 </AnchorPane>
