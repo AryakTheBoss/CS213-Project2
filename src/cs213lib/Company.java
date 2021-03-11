@@ -250,17 +250,8 @@ public class Company {
                                 Profile profile = new Profile(name[1]+","+name[0],current[2],temp);
                                 float salary = Float.parseFloat(current[4]);
                                 Employee newEmployee;
-                                int type = 0; //default initialize
-                                switch(current[5]) {
-                                    case "5000":
-                                        type = 1;
-                                    case "9500":
-                                        type = 2;
-                                    case "12000":
-                                        type = 3;
-                                }
-                                if(type==0)
-                                    return false;
+                                int type = Integer.parseInt(current[5]); //default initialize
+
                                 newEmployee = new Management(profile, salary,type);
                                 this.add(newEmployee);
 
