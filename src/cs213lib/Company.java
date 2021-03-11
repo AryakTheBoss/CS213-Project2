@@ -1,7 +1,10 @@
 package cs213lib;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+
 
 /**
  * wrapper class that represents a company
@@ -176,6 +179,12 @@ public class Company {
 
                 if(saveLocation.createNewFile()){
                     //file created successfully, write the stuff
+                    FileWriter myWriter = new FileWriter(saveLocation);
+                    for(int i =0;i<employees.length;i++){
+                        myWriter.write(employees[i].toString());
+                        myWriter.write("\n");
+                    }
+
                     return true;
                 }else{ //file could not be created
                     return false;
@@ -201,8 +210,73 @@ public class Company {
         if(database.exists()){
             //the file exists, read from it and add contents to company by calling add()
             //check for proper formatting in file, else return false
+
+            Scanner scanner = new Scanner(database);
+            while (scanner.hasNextLine()) {
+                //OPERATE ON LINES HERE
+                String[] current = new String[6];
+                current = scanner.nextLine().split(","); //5 arguments
+                if(current[0].equals("P")||current[0].equals("F")){ //if correct type position
+                    if(current[2].equals("ECE")||current[2].equals("IT")||current[2].equals("CS")){ //correct department
+                        Date temp = new Date(current[3]); //the date should be the 3rd argument
+                        if(temp.isValid()) { //if date is valid
+                            try{
+                                String[] name = new String[2];
+                                name = current[1].split(" ");
+                                Profile profile = new Profile(name[1]+","+name[0],current[2],temp);
+                                float salary = Float.parseFloat(current[4]);
+                                Employee newEmployee;
+                                if(current[0].equals("P")){
+                                    newEmployee = new Parttime(profile, salary, 0);
+                                }
+                                else{
+                                    newEmployee = new Fulltime(profile, salary);
+                                }
+                                this.add(newEmployee);
+
+                            } catch (NumberFormatException e) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else if(current[0].equals("M")){
+                    if(current[2].equals("ECE")||current[2].equals("IT")||current[2].equals("CS")){ //correct department
+                        Date temp = new Date(current[3]); //the date should be the 3rd argument
+                        if(temp.isValid()) { //if date is valid
+                            try{
+                                String[] name = new String[2];
+                                name = current[1].split(" ");
+                                Profile profile = new Profile(name[1]+","+name[0],current[2],temp);
+                                float salary = Float.parseFloat(current[4]);
+                                Employee newEmployee;
+                                int type = 0; //default initialize
+                                switch(current[5]) {
+                                    case "5000":
+                                        type = 1;
+                                    case "9500":
+                                        type = 2;
+                                    case "12000":
+                                        type = 3;
+                                }
+                                if(type==0)
+                                    return false;
+                                newEmployee = new Management(profile, salary,type);
+                                this.add(newEmployee);
+
+                            } catch (NumberFormatException e) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            scanner.close();
+
             return true;
-        }else{
+        }
+        else{
             //file does not exist
             return false;
         }
