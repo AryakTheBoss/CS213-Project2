@@ -181,9 +181,13 @@ public class Company {
                     //file created successfully, write the stuff
                     FileWriter myWriter = new FileWriter(saveLocation);
                     for(int i =0;i<employees.length;i++){
-                        myWriter.write(employees[i].toString());
-                        myWriter.write("\n");
+                        if(employees[i] != null) {
+                            myWriter.write(employees[i].toString());
+                            myWriter.write("\n");
+                        }
                     }
+                    myWriter.flush();
+                    myWriter.close();
 
                     return true;
                 }else{ //file could not be created
