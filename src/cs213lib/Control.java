@@ -185,7 +185,7 @@ public class Control {
        boolean c1 = !fname.getText().isEmpty();
        boolean c2 = !lname.getText().isEmpty();
        boolean c4 = hired.getValue() != null;
-       boolean c5 = addTabTypeGroup.getSelectedToggle().isSelected();
+       boolean c5 = addTabTypeGroup.getSelectedToggle() != null;
 
        return c1 && c2 && c4 && c5;
 
@@ -299,13 +299,15 @@ public class Control {
                     messageBox.setVisible(true);
                     return;
                 }
-                if(!addTabManTypeGroup.getSelectedToggle().isSelected()){
+                if(addTabManTypeGroup.getSelectedToggle() == null){
                     messageBox.setText("Manager type is not selected.");
                     console.appendText("\nManager type is not selected.");
                     messageBox.setVisible(true);
                     return;
                 }
+
                 com.add(new Management(p, annsal, selection3.getText().equals("Manager") ? 1 : (selection3.getText().equals("Department Head") ? 2 : 3)));
+
                 messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
                 console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
