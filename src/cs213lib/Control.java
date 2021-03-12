@@ -47,7 +47,7 @@ public class Control {
     @FXML private TextField hoursWorked;
     @FXML private Label messageBox;
 
-    /* REMOVE TAB COMPONENTS */
+    /* MODIFY TAB COMPONENTS */
 
     @FXML private TextField fnameR;
     @FXML private TextField lnameR;

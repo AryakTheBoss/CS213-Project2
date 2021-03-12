@@ -176,7 +176,7 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="propp" layoutX="25.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="30.0" prefWidth="118.0" text="Process Payments" />
+      <Button fx:id="propp" layoutX="17.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="37.0" prefWidth="164.0" text="Process Payments" />
        <Label fx:id="messageBox" layoutX="156.0" layoutY="333.0" prefHeight="58.0" prefWidth="300.0" text="NULL" visible="false" />
       <Button layoutX="484.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#quit" prefHeight="30.0" prefWidth="99.0" text="Quit" />
    </children>
