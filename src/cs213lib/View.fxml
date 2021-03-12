@@ -25,7 +25,7 @@
                                                       <TextField fx:id="fname" layoutX="13.0" layoutY="14.0" promptText="First Name*" />
                                                       <TextField fx:id="lname" layoutX="13.0" layoutY="46.0" promptText="Last Name*" />
                                                       <Label layoutX="13.0" layoutY="77.0" prefHeight="0.0" prefWidth="147.0" text="Department*" />
-                                                      <DatePicker fx:id="hired" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" promptText="Date Hired*" />
+                                                      <DatePicker fx:id="hired" editable="false" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" promptText="Date Hired*" />
                                                       <Label layoutX="13.0" layoutY="170.0" prefHeight="19.0" prefWidth="86.0" text="Employee Type*" />
                                                       <HBox alignment="CENTER_LEFT" layoutX="11.0" layoutY="93.0" prefHeight="38.0" prefWidth="157.0">
                                                          <children>

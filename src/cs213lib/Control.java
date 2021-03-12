@@ -273,7 +273,7 @@ public class Control {
         }else if(selection.getText().equals("Part-Time")){
             Profile p = new Profile(lname.getText()+","+fname.getText(),selection2.getText(),d);
             try {
-                float hours = Float.parseFloat(hoursWorked.getText());
+                float hours = !hoursWorked.getText().isEmpty() ? Float.parseFloat(hoursWorked.getText()) : 0;
                 float rate = Float.parseFloat(hourlyRate.getText());
                 if(rate<0){
                     messageBox.setText("Negative hourly rate entered.");
@@ -451,10 +451,9 @@ public class Control {
     /**
      * imports a database.txt file into the array
      * @param database the file to import
-     * @return true if imported successfully false otherwise
      * @throws IOException if file cannot be read
      */
-    public void importDB(File database) throws IOException { //returns true if database was successfully imported
+    public void importDB(File database) throws IOException {
         if(database == null){
             return;
         }
@@ -572,8 +571,8 @@ public class Control {
                 console.appendText("\nEmployee Database was successfully exported.");
                 exportStatus.setText("Employee Database was successfully exported.");
             }else{
-                console.appendText("\nFile already exists, or a file could not be created.");
-                exportStatus.setText("File already exists, or a file could not be created.");
+                console.appendText("\nFile already exists, or a file could not be created, or the database is empty");
+                exportStatus.setText("File already exists, or a file could not be created, or the database is empty");
             }
             exportStatus.setVisible(true);
         } catch (IOException e) {

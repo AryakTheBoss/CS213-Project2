@@ -175,6 +175,9 @@ public class Company {
         if(saveLocation == null){
             return false;
         }
+        if(isEmpty()){
+            return false;
+        }
         if (!saveLocation.exists()) {
 
                 if(saveLocation.createNewFile()){
