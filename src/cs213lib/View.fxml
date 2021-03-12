@@ -71,7 +71,7 @@
                                                 <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="122.0" />
                                                 <TextField fx:id="lnameR" promptText="Last Name*" />
                                                 <Label />
-                                                <DatePicker fx:id="hiredR" promptText="Date Hired*" />
+                                                <DatePicker fx:id="hiredR" editable="false" promptText="Date Hired*" />
                                                 <Label />
                                                 <Label text="Department" />
                                                 <RadioButton fx:id="csRadio" mnemonicParsing="false" text="CS" />
@@ -104,7 +104,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="console" layoutX="14.0" layoutY="14.0" prefHeight="226.0" prefWidth="570.0" wrapText="true" />
+                        <TextArea fx:id="console" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="226.0" prefWidth="570.0" wrapText="true" />
                         <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="247.0" prefHeight="48.0" prefWidth="570.0">
                            <children>
                               <Button mnemonicParsing="false" onMouseClicked="#showAll" text="Show All Employees" />

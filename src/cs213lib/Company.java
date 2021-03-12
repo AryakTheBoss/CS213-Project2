@@ -14,6 +14,7 @@ public class Company {
 
     private Employee[] employees; //array to store employees in Company
     private int numEmployee; //track the count of employees
+    private static final int GROW_SIZE = 4;
 
     /**
      * Constructor for Company
@@ -46,7 +47,7 @@ public class Company {
      * Grows the bag by 4 spaces.
      */
     private void grow(){ //returns larger size array
-        Employee[] newEmployeeArray = new Employee[employees.length+4]; //increase array length by 4, to copy over
+        Employee[] newEmployeeArray = new Employee[employees.length+GROW_SIZE]; //increase array length by 4, to copy over
         //run through employee array
         //copy over every element
         System.arraycopy(employees, 0, newEmployeeArray, 0, employees.length);
