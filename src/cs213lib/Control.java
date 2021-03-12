@@ -29,13 +29,22 @@ public class Control {
 
     @FXML private TextField fname;
     @FXML private TextField lname;
-    @FXML private ChoiceBox<String> dept;
     @FXML private DatePicker hired;
-    @FXML private ChoiceBox<String> emptype;
+    @FXML private RadioButton csb;
+    @FXML private RadioButton eceb;
+    @FXML private RadioButton itb;
+    @FXML private RadioButton ftRadio;
+    @FXML private RadioButton ptRadio;
+    @FXML private RadioButton mRadio;
+    @FXML private RadioButton maRadio;
+    @FXML private RadioButton dhRadio;
+    @FXML private RadioButton dirRadio;
+    private ToggleGroup addTabDeptGroup = new ToggleGroup();
+    private ToggleGroup addTabTypeGroup = new ToggleGroup();
+    private ToggleGroup addTabManTypeGroup = new ToggleGroup();
     @FXML private TextField annualSalary;
     @FXML private TextField hourlyRate;
     @FXML private TextField hoursWorked;
-    @FXML private ChoiceBox<String> mantype;
     @FXML private Label messageBox;
 
     /* REMOVE TAB COMPONENTS */
@@ -74,15 +83,13 @@ public class Control {
     }
 
     private void initAddForm(){
-        String[] departments = { "CS", "ECE", "IT"};
-        dept.setItems(FXCollections.observableArrayList(departments));
 
-        String[] empTypes = {"Full-Time", "Part-Time","Manager"};
-        emptype.setItems(FXCollections.observableArrayList(empTypes));
         hourlyRate.setDisable(true);
         hoursWorked.setDisable(true); //disable these since no selection is default
         annualSalary.setDisable(true);
-        mantype.setDisable(true);
+        maRadio.setDisable(true);
+        dhRadio.setDisable(true);
+        dirRadio.setDisable(true);
         hired.setDayCellFactory(param -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -91,41 +98,59 @@ public class Control {
             }
         });
 
-        String[] managerTypes = {"Manager", "Department Head","Director"};
-        mantype.setItems(FXCollections.observableArrayList(managerTypes));
+        csb.setToggleGroup(addTabDeptGroup);
+        eceb.setToggleGroup(addTabDeptGroup);
+        itb.setToggleGroup(addTabDeptGroup);
+        ftRadio.setToggleGroup(addTabTypeGroup);
+        ptRadio.setToggleGroup(addTabTypeGroup);
+        mRadio.setToggleGroup(addTabTypeGroup);
+        maRadio.setToggleGroup(addTabManTypeGroup);
+        dhRadio.setToggleGroup(addTabManTypeGroup);
+        dirRadio.setToggleGroup(addTabManTypeGroup);
+        csb.setSelected(true);
 
-        emptype.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-
-            // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value) //enable and disable text fields depending on which employee type is currently selected.
+        addTabTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+        {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                                Toggle o, Toggle n)
             {
-                int index = new_value.intValue();
-                try {
-                    if (empTypes[index].equals("Full-Time")) {
-                        annualSalary.setDisable(false);
-                        hourlyRate.setDisable(true);
-                        hoursWorked.setDisable(true);
-                        mantype.setDisable(true);
-                    } else if (empTypes[index].equals("Part-Time")) {
-                        annualSalary.setDisable(true);
-                        hourlyRate.setDisable(false);
-                        hoursWorked.setDisable(false);
-                        mantype.setDisable(true);
-                    } else {
-                        annualSalary.setDisable(false);
-                        hourlyRate.setDisable(true);
-                        hoursWorked.setDisable(true);
-                        mantype.setDisable(false);
-                    }
-                }catch(ArrayIndexOutOfBoundsException e){ //caught when the form has been reset
 
-                    hourlyRate.setDisable(true);
-                    hoursWorked.setDisable(true);
-                    annualSalary.setDisable(true);
-                    mantype.setDisable(true);
+                RadioButton rb = (RadioButton)addTabTypeGroup.getSelectedToggle();
+
+                if (rb != null) {
+                    String s = rb.getText();
+                    switch (s) {
+                        case "Full-Time":
+                            annualSalary.setDisable(false);
+                            hourlyRate.setDisable(true);
+                            hoursWorked.setDisable(true);
+                            maRadio.setDisable(true);
+                            dhRadio.setDisable(true);
+                            dirRadio.setDisable(true);
+                            break;
+                        case "Part-Time":
+                            annualSalary.setDisable(true);
+                            hourlyRate.setDisable(false);
+                            hoursWorked.setDisable(false);
+                            maRadio.setDisable(true);
+                            dhRadio.setDisable(true);
+                            dirRadio.setDisable(true);
+                            break;
+                        case "Management":
+                            annualSalary.setDisable(false);
+                            hourlyRate.setDisable(true);
+                            hoursWorked.setDisable(true);
+                            maRadio.setDisable(false);
+                            dhRadio.setDisable(false);
+                            dirRadio.setDisable(false);
+                            break;
+                    }
+
                 }
             }
         });
+
+
     }
 
     public void initRemoveForm(){
@@ -159,24 +184,32 @@ public class Control {
     private boolean addFormCompleted(){
        boolean c1 = !fname.getText().isEmpty();
        boolean c2 = !lname.getText().isEmpty();
-       boolean c3 = !dept.getSelectionModel().isEmpty();
        boolean c4 = hired.getValue() != null;
-       boolean c5 = !emptype.getSelectionModel().isEmpty();
+       boolean c5 = addTabTypeGroup.getSelectedToggle().isSelected();
 
-       return c1 && c2 && c3 && c4 && c5;
+       return c1 && c2 && c4 && c5;
 
     }
 
     private void clearAddForm(){
         fname.setText("");
         lname.setText("");
-        dept.getSelectionModel().clearSelection();
+       csb.setSelected(true);
         hired.setValue(null);
-        emptype.getSelectionModel().clearSelection();
+        addTabTypeGroup.getSelectedToggle().setSelected(false);
+        if(addTabManTypeGroup.getSelectedToggle() != null) {
+            addTabManTypeGroup.getSelectedToggle().setSelected(false);
+        }
         annualSalary.setText("");
         hourlyRate.setText("");
         hoursWorked.setText("");
-        mantype.getSelectionModel().clearSelection();
+        annualSalary.setDisable(true);
+        hourlyRate.setDisable(true);
+        hoursWorked.setDisable(true);
+        maRadio.setDisable(true);
+        dhRadio.setDisable(true);
+        dirRadio.setDisable(true);
+
     }
     @FXML
     private void clearRemoveForm(){
@@ -205,8 +238,12 @@ public class Control {
             return;
         }
 
-        if(emptype.getSelectionModel().getSelectedIndex() == 0){
-            Profile p = new Profile(lname.getText()+","+fname.getText(),dept.getSelectionModel().getSelectedItem(),d);
+       RadioButton selection = (RadioButton)addTabTypeGroup.getSelectedToggle();
+        RadioButton selection2 = (RadioButton)addTabDeptGroup.getSelectedToggle();
+        RadioButton selection3 = (RadioButton)addTabManTypeGroup.getSelectedToggle();
+
+        if(selection.getText().equals("Full-Time")){
+            Profile p = new Profile(lname.getText()+","+fname.getText(),selection2.getText(),d);
             try {
                 float annsal = Float.parseFloat(annualSalary.getText());
                 if(annsal < 0){
@@ -225,8 +262,8 @@ public class Control {
                 console.appendText("\nAnnual Salary value is invalid.");
                 messageBox.setVisible(true);
             }
-        }else if(emptype.getSelectionModel().getSelectedIndex() == 1){
-            Profile p = new Profile(lname.getText()+","+fname.getText(),dept.getSelectionModel().getSelectedItem(),d);
+        }else if(selection.getText().equals("Part-Time")){
+            Profile p = new Profile(lname.getText()+","+fname.getText(),selection2.getText(),d);
             try {
                 float hours = Float.parseFloat(hoursWorked.getText());
                 float rate = Float.parseFloat(hourlyRate.getText());
@@ -252,8 +289,8 @@ public class Control {
                 console.appendText("\nInvalid rate or hours entered.");
                 messageBox.setVisible(true);
             }
-        }else if(emptype.getSelectionModel().getSelectedIndex() == 2){
-            Profile p = new Profile(lname.getText()+","+fname.getText(),dept.getSelectionModel().getSelectedItem(),d);
+        }else if(selection.getText().equals("Management")){
+            Profile p = new Profile(lname.getText()+","+fname.getText(),selection2.getText(),d);
             try {
                 float annsal = Float.parseFloat(annualSalary.getText());
                 if(annsal < 0){
@@ -262,13 +299,13 @@ public class Control {
                     messageBox.setVisible(true);
                     return;
                 }
-                if(mantype.getSelectionModel().isEmpty()){
+                if(!addTabManTypeGroup.getSelectedToggle().isSelected()){
                     messageBox.setText("Manager type is not selected.");
                     console.appendText("\nManager type is not selected.");
                     messageBox.setVisible(true);
                     return;
                 }
-                com.add(new Management(p, annsal, mantype.getSelectionModel().getSelectedIndex() + 1));
+                com.add(new Management(p, annsal, selection3.getText().equals("Manager") ? 1 : (selection3.getText().equals("Department Head") ? 2 : 3)));
                 messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
                 console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
                 messageBox.setVisible(true);
