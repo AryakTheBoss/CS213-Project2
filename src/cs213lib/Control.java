@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 public class Control {
 
-    private static Company com;
+    private static Company com; //the main company object
 
     /* GLOBAL COMPONENTS */
 
@@ -47,9 +47,9 @@ public class Control {
     @FXML private RadioButton maRadio;
     @FXML private RadioButton dhRadio;
     @FXML private RadioButton dirRadio;
-    private ToggleGroup addTabDeptGroup = new ToggleGroup();
-    private ToggleGroup addTabTypeGroup = new ToggleGroup();
-    private ToggleGroup addTabManTypeGroup = new ToggleGroup();
+          private ToggleGroup addTabDeptGroup = new ToggleGroup();
+          private ToggleGroup addTabTypeGroup = new ToggleGroup();
+          private ToggleGroup addTabManTypeGroup = new ToggleGroup();
     @FXML private TextField annualSalary;
     @FXML private TextField hourlyRate;
     @FXML private TextField hoursWorked;
@@ -61,35 +61,54 @@ public class Control {
     @FXML private TextField lnameR;
     @FXML private TextField hoursModify;
     @FXML private DatePicker hiredR;
-    private ToggleGroup departmentGroup = new ToggleGroup();
+          private ToggleGroup departmentGroup = new ToggleGroup();
     @FXML private RadioButton csRadio;
     @FXML private RadioButton eceRadio;
     @FXML private RadioButton itRadio;
 
 
-
-
+    /**
+     * default constructor called by FXML loader
+     */
     public Control(){
         com = new Company();
     }
 
+    /**
+     * called by show all button
+     */
     @FXML
     private void showAll(){
         console.appendText(com.print());
     }
+
+    /**
+     * called by show by departments button
+     */
     @FXML
     private void showByDept(){
         console.appendText(com.printByDepartment());
     }
+
+    /**
+     * called by show by date button
+     */
     @FXML
     private void showByDate(){
         console.appendText(com.printByDate());
     }
+
+    /**
+     * called by clear button in the output tab
+     */
     @FXML
     private void clearOut(){
         console.setText("");
     }
 
+    /**
+     * initializes the add fields in the Add tab
+     */
     private void initAddForm(){
 
         hourlyRate.setDisable(true);
@@ -98,7 +117,7 @@ public class Control {
         maRadio.setDisable(true);
         dhRadio.setDisable(true);
         dirRadio.setDisable(true);
-        hired.setDayCellFactory(param -> new DateCell() {
+        hired.setDayCellFactory(param -> new DateCell() { //disable picking future dates
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -106,6 +125,7 @@ public class Control {
             }
         });
 
+        //add all the radio buttons to their respective toggle groups
         csb.setToggleGroup(addTabDeptGroup);
         eceb.setToggleGroup(addTabDeptGroup);
         itb.setToggleGroup(addTabDeptGroup);
@@ -115,20 +135,20 @@ public class Control {
         maRadio.setToggleGroup(addTabManTypeGroup);
         dhRadio.setToggleGroup(addTabManTypeGroup);
         dirRadio.setToggleGroup(addTabManTypeGroup);
-        csb.setSelected(true);
+        csb.setSelected(true); //set CS as selected by default
 
         addTabTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
-        {
+        { //add a listener so the employee type spesific fields become available depending which one is currently selected
             public void changed(ObservableValue<? extends Toggle> ob,
                                 Toggle o, Toggle n)
             {
 
-                RadioButton rb = (RadioButton)addTabTypeGroup.getSelectedToggle();
+                RadioButton rb = (RadioButton)addTabTypeGroup.getSelectedToggle(); //get currently selected button
 
                 if (rb != null) {
                     String s = rb.getText();
                     switch (s) {
-                        case "Full-Time":
+                        case "Full-Time": //if full time is selected
                             annualSalary.setDisable(false);
                             hourlyRate.setDisable(true);
                             hoursWorked.setDisable(true);
@@ -136,7 +156,7 @@ public class Control {
                             dhRadio.setDisable(true);
                             dirRadio.setDisable(true);
                             break;
-                        case "Part-Time":
+                        case "Part-Time": //if part time is selected
                             annualSalary.setDisable(true);
                             hourlyRate.setDisable(false);
                             hoursWorked.setDisable(false);
@@ -144,7 +164,7 @@ public class Control {
                             dhRadio.setDisable(true);
                             dirRadio.setDisable(true);
                             break;
-                        case "Management":
+                        case "Management": //if management is selected
                             annualSalary.setDisable(false);
                             hourlyRate.setDisable(true);
                             hoursWorked.setDisable(true);
@@ -161,8 +181,11 @@ public class Control {
 
     }
 
-    public void initRemoveForm(){
-        hiredR.setDayCellFactory(param -> new DateCell() {
+    /**
+     * initializes the modify form
+     */
+    public void initModifyForm(){
+        hiredR.setDayCellFactory(param -> new DateCell() { //disable picking future dates
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -171,27 +194,32 @@ public class Control {
         });
 
         csRadio.setToggleGroup(departmentGroup);
-        eceRadio.setToggleGroup(departmentGroup);
+        eceRadio.setToggleGroup(departmentGroup); //add department radio buttons to their toggle group
         itRadio.setToggleGroup(departmentGroup);
         csRadio.setSelected(true);
 
     }
 
 
-
-
+    /**
+     * initializes all parts of the GUI
+     */
     @FXML
     public void initialize(){ //initialize ALL GUI elements
         console.setEditable(false); //make the text area read only
         initAddForm(); //initialize the add tab
-        initRemoveForm();
+        initModifyForm(); //initialize the modify tab
 
 
     }
 
+    /**
+     * checks if the add fields are filled in or not
+     * @return true if required fields are filled in, false otherwise
+     */
     private boolean addFormCompleted(){
-       boolean c1 = !fname.getText().isEmpty();
-       boolean c2 = !lname.getText().isEmpty();
+       boolean c1 = !fname.getText().isEmpty(); //first name should not be empty
+       boolean c2 = !lname.getText().isEmpty(); //
        boolean c4 = hired.getValue() != null;
        boolean c5 = addTabTypeGroup.getSelectedToggle() != null;
 
@@ -199,6 +227,9 @@ public class Control {
 
     }
 
+    /**
+     * clears the add fields
+     */
     private void clearAddForm(){
         fname.setText("");
         lname.setText("");
@@ -219,8 +250,12 @@ public class Control {
         dirRadio.setDisable(true);
 
     }
+
+    /**
+     * clears the modify fields
+     */
     @FXML
-    private void clearRemoveForm(){
+    private void clearModifyForm(){
         fnameR.setText("");
         lnameR.setText("");
        csRadio.setSelected(true);
@@ -229,9 +264,12 @@ public class Control {
 
     }
 
+    /**
+     * processes the add fields and adds an employee, this is called by the Submit button
+     */
     @FXML
     public void processAddForm(){ //called by the submit button on the add tab
-       // messageBox.setVisible(false);
+
         if(!addFormCompleted()){
             messageBox.setText("One or more required Fields are EMPTY.");
             console.appendText("\nOne or more required Fields are EMPTY.");
@@ -260,11 +298,16 @@ public class Control {
                     messageBox.setVisible(true);
                     return;
                 }
-                com.add(new Fulltime(p, annsal));
-                messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
-                console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
-                messageBox.setVisible(true);
-                clearAddForm();
+                if(com.add(new Fulltime(p, annsal))){
+                    messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
+                    console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
+                    messageBox.setVisible(true);
+                    clearAddForm();
+                }else {
+                    messageBox.setText("Employee is already in the database.");
+                    console.appendText("\nEmployee is already in the database.");
+                    messageBox.setVisible(true);
+                }
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
                 console.appendText("\nAnnual Salary value is invalid.");
@@ -287,11 +330,16 @@ public class Control {
                     messageBox.setVisible(true);
                     return;
                 }
-                com.add(new Parttime(p, rate, hours));
-                messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
-                console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
-                messageBox.setVisible(true);
-                clearAddForm();
+                if(com.add(new Parttime(p, rate, hours))) {
+                    messageBox.setText("Employee \"" + p.getName() + "\" added successfully.");
+                    console.appendText("\nEmployee \"" + p.getName() + "\" added successfully.");
+                    messageBox.setVisible(true);
+                    clearAddForm();
+                }else{
+                    messageBox.setText("Employee is already in the database.");
+                    console.appendText("\nEmployee is already in the database.");
+                    messageBox.setVisible(true);
+                }
             }catch(NumberFormatException e){
                 messageBox.setText("Invalid rate or hours entered.");
                 console.appendText("\nInvalid rate or hours entered.");
@@ -314,12 +362,18 @@ public class Control {
                     return;
                 }
 
-                com.add(new Management(p, annsal, selection3.getText().equals("Manager") ? 1 : (selection3.getText().equals("Department Head") ? 2 : 3)));
+                if(com.add(new Management(p, annsal, selection3.getText().equals("Manager") ? 1 : (selection3.getText().equals("Department Head") ? 2 : 3)))) {
 
-                messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
-                console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
-                messageBox.setVisible(true);
-                clearAddForm();
+
+                    messageBox.setText("Manager \"" + p.getName() + "\" added successfully.");
+                    console.appendText("\nManager \"" + p.getName() + "\" added successfully.");
+                    messageBox.setVisible(true);
+                    clearAddForm();
+                }else{
+                    messageBox.setText("Employee is already in the database.");
+                    console.appendText("\nEmployee is already in the database.");
+                    messageBox.setVisible(true);
+                }
             }catch(NumberFormatException e){
                 messageBox.setText("Annual Salary value is invalid.");
                 console.appendText("\nAnnual Salary value is invalid.");
@@ -333,6 +387,10 @@ public class Control {
 
     }
 
+    /**
+     * checks if all required fields are filled in for modify tab
+     * @return
+     */
     public boolean modifyCompleted(){
         boolean c1 = !fnameR.getText().isEmpty();
         boolean c2 = !lnameR.getText().isEmpty();
@@ -341,6 +399,10 @@ public class Control {
 
         return c1 && c2 && c3 && c4;
     }
+
+    /**
+     * called by the set hours button on the modify tab
+     */
     @FXML
     public void setHours(){
         if(!modifyCompleted() || hoursModify.getText().isEmpty()){
@@ -390,6 +452,10 @@ public class Control {
             messageBox.setVisible(true);
         }
     }
+
+    /**
+     * removes an employee. called by the remove employee button in the modify tab
+     */
     @FXML
     public void removeEmployee(){
         if(!modifyCompleted()){
@@ -428,11 +494,17 @@ public class Control {
         messageBox.setVisible(true);
     }
 
+    /**
+     * quits the program. called by the quit button
+     */
     @FXML
     public void quit(){ //called by the quit button
         System.exit(0);
     }
 
+    /**
+     * calculates the payments. called by the calculate payments button
+     */
     @FXML
     public void calculate(){ //called by the process payment button
 
@@ -449,7 +521,7 @@ public class Control {
     }
 
     /**
-     * imports a database.txt file into the array
+     * imports a database.txt file into the array.
      * @param database the file to import
      * @throws IOException if file cannot be read
      */
@@ -544,12 +616,15 @@ public class Control {
         }
     }
 
+    /**
+     * called by the open file button in the import tab
+     */
     @FXML
     public void importFile(){
         FileChooser dialog = new FileChooser();
         dialog.setTitle("Import Employee Database");
         FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
+                new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt"); //apply a filter so only text files are allowed
         dialog.getExtensionFilters().add(extFilter); //apply a filter to only allow text files.
         File f = dialog.showOpenDialog(importTab.getScene().getWindow());
         try {
@@ -560,6 +635,9 @@ public class Control {
         }
     }
 
+    /**
+     * exports the employee database. called by the Save button in the export tab
+     */
     @FXML
     public void exportFile(){
         FileChooser dialog = new FileChooser();
