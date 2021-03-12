@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Control {
 
@@ -440,6 +441,103 @@ public class Control {
         messageBox.setVisible(true);
     }
 
+    /**
+     * imports a database.txt file into the array
+     * @param database the file to import
+     * @return true if imported successfully false otherwise
+     * @throws IOException if file cannot be read
+     */
+    public void importDB(File database) throws IOException { //returns true if database was successfully imported
+        if(database == null){
+            return;
+        }
+        boolean containsBadLines = false;
+        if(database.exists()){
+            //the file exists, read from it and add contents to company by calling add()
+            //check for proper formatting in file, else return false
+
+            Scanner scanner = new Scanner(database);
+            while (scanner.hasNextLine()) {
+                //OPERATE ON LINES HERE
+                String[] current = new String[6];
+                String line = scanner.nextLine();
+                current = line.split(","); //5 arguments
+                if(current[0].equals("P")||current[0].equals("F")){ //if correct type position
+                    if(current[2].equals("ECE")||current[2].equals("IT")||current[2].equals("CS")){ //correct department
+                        Date temp = new Date(current[3]); //the date should be the 3rd argument
+                        if(temp.isValid()) { //if date is valid
+                            try{
+                                String[] name = new String[2];
+                                name = current[1].split(" ");
+                                Profile profile = new Profile(name[1]+","+name[0],current[2],temp);
+                                float salary = Float.parseFloat(current[4]);
+                                Employee newEmployee;
+                                if(current[0].equals("P")){
+                                    newEmployee = new Parttime(profile, salary, 0);
+                                }
+                                else{
+                                    newEmployee = new Fulltime(profile, salary);
+                                }
+                                com.add(newEmployee);
+
+                            } catch (NumberFormatException e) {
+                                console.appendText("\n"+line+" is a BAD LINE in imported File.");
+                                containsBadLines = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else if(current[0].equals("M")){
+                    if(current[2].equals("ECE")||current[2].equals("IT")||current[2].equals("CS")){ //correct department
+                        Date temp = new Date(current[3]); //the date should be the 3rd argument
+                        if(temp.isValid()) { //if date is valid
+                            try{
+                                String[] name = new String[2];
+                                name = current[1].split(" ");
+                                Profile profile = new Profile(name[1]+","+name[0],current[2],temp);
+                                float salary = Float.parseFloat(current[4]);
+                                Employee newEmployee;
+                                int type = Integer.parseInt(current[5]); //default initialize
+
+                                newEmployee = new Management(profile, salary,type);
+                                com.add(newEmployee);
+
+                            } catch (NumberFormatException e) {
+                                console.appendText("\n"+line+" is a BAD LINE in imported File.");
+                                containsBadLines = true;
+                                return;
+                            }
+                        }
+                    }
+                }else{
+                    console.appendText("\n"+line+" is a BAD LINE in imported File.");
+                    containsBadLines = true;
+                     //bad line
+                }
+            }
+
+            scanner.close();
+            if(!containsBadLines) {
+                console.appendText("\nEmployee Database was successfully imported.");
+                importStatus.setText("Employee Database was successfully imported.");
+
+            }else{
+                console.appendText("\nEmployee Database was imported, but some lines were invalid.");
+                importStatus.setText("Employee Database was imported, but some lines were invalid.");
+            }
+            importStatus.setVisible(true);
+
+
+        }
+        else{
+            //file does not exist
+            console.appendText("\nFile does not exist.");
+            importStatus.setText("File does not exist.");
+            importStatus.setVisible(true);
+        }
+    }
+
     @FXML
     public void importFile(){
         FileChooser dialog = new FileChooser();
@@ -449,18 +547,10 @@ public class Control {
         dialog.getExtensionFilters().add(extFilter); //apply a filter to only allow text files.
         File f = dialog.showOpenDialog(importTab.getScene().getWindow());
         try {
-            if(com.importDB(f)){
-                console.appendText("\nEmployee Database was successfully imported.");
-                importStatus.setText("Employee Database was successfully imported.");
-            }else{
-                console.appendText("\nFile does not exist.");
-                importStatus.setText("File does not exist.");
-            }
-            importStatus.setVisible(true);
+            importDB(f);
         } catch (IOException e) {
-            console.appendText("\nFile does not exist or is not readable.");
-            importStatus.setText("File does not exist or is not readable.");
-            importStatus.setVisible(true);
+            console.appendText("\nFile does not exist.");
+            importStatus.setText("File does not exist.");
         }
     }
 
