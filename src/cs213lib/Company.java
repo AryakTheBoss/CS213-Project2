@@ -152,6 +152,7 @@ public class Company {
 
     /**
      * run calculatePayment for each employee
+     * @return true if processed false if database is empty
      */
     public boolean processPayments(){
         if(isEmpty()){ //if no employees
@@ -183,14 +184,14 @@ public class Company {
 
                 if(saveLocation.createNewFile()){
                     //file created successfully, write the stuff
-                    FileWriter myWriter = new FileWriter(saveLocation);
-                    for(int i =0;i<employees.length;i++){
-                        if(employees[i] != null) {
-                            myWriter.write(employees[i].toString());
-                            myWriter.write("\n");
+                    FileWriter myWriter = new FileWriter(saveLocation); //filewriter to write to a file
+                    for(int i =0;i<employees.length;i++){//for each employee, write to file
+                        if(employees[i] != null) { //if employee is not null
+                            myWriter.write(employees[i].toString()); //convert their information to string
+                            myWriter.write("\n"); //write a new line to file
                         }
                     }
-                    myWriter.flush();
+                    myWriter.flush(); //close and write to the file
                     myWriter.close();
 
                     return true;
@@ -209,6 +210,7 @@ public class Company {
 
     /**
     print all employees' earning statements out
+     @return the string of employees
     */
     public String print(){
         String result = "";
@@ -230,6 +232,7 @@ public class Company {
 
     /**
     print all employees in order of the departments: cs, ee, iti
+     @return the string of employees by department
     */
     public String printByDepartment(){
         String result="";
@@ -265,6 +268,7 @@ public class Company {
 
     /**
     print employees in order of their date hired
+     @return the string of employees by date
     */
     public String printByDate(){ //print by date hired
         String result="";
